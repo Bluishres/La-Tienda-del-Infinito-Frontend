@@ -1,26 +1,16 @@
 
-import '_models.dart';
-import 'package:sqflite/sqlite_api.dart';
+import 'package:la_tienda_del_infinito/app/domain/model/Usuario.dart';
 
-class Producto extends ModelDb {
-  //ATRIBUTOS DE LA BASE DE DATOS
-static final tbl = "Producto";
-static final dbId = "id";
-static final dbNombre = "nombre";
-static final dbDescripcion = "descripcion";
-static final dbPrecio = "precio";
-static final dbStock = "stock_disponible";
-static final dbFechaCreacion = "fecha_creacion";
-static final dbUsuarios = "id_usuarios";
+class Producto {
 
 //ATRIBUTOS
 final int id;
 final String nombre;
 final String descripcion;
-final Double precio;
+final double precio;
 final int stockDisponible;
-final Date fechaCreacion;
-//int idUsuarios;
+final DateTime fechaCreacion;
+final List<Usuario> Lista_usuarios;
 
   //CONSTRUCTOR
   Producto._(
@@ -30,8 +20,8 @@ final Date fechaCreacion;
       this.precio,
       this.stockDisponible,
       this.fechaCreacion,
-      this.idUsuarios})
-      : super(tbl,dbId, id.toString());
+      this.Lista_usuarios,})
+      : super();
 
   //MAPEADOR A OBJETO
   factory Producto.fromJson(Map<String, dynamic> json) => Producto._(
@@ -41,18 +31,18 @@ final Date fechaCreacion;
     precio: json["precio"],
     stockDisponible: json["stockDisponible"],
     fechaCreacion: json["fechaCreacion"],
-    idUsuarios: json["idUsuarios"],
+    Lista_usuarios: json["Lista_usuarios"],
   );
 
   //MAPEADOR A JSON
   Map<String, dynamic> toJson() => {
     "id": id,
     "nombre": nombre,
-    "descripciom": descripciom,
+    "descripciom": descripcion,
     "precio": precio,
     "stockDisponible": stockDisponible,
     "fechaCreacion": fechaCreacion,
-    "idUsuarios": idUsuarios,
+    "Lista_usuarios": Lista_usuarios,
   };
 
 
@@ -61,20 +51,12 @@ final Date fechaCreacion;
   List<Object> get props => [
     id,
     nombre,
-    descripciom,
+    descripcion,
     precio,
     stockDisponible,
     fechaCreacion,
-    idUsuarios,
+    Lista_usuarios,
   ];
 
-  //SELECT * FROM USUARIO
-  static Future<List<Producto>> DbSelectAll(Database db) async {
-    final result = await db.rawQuery('SELECT FROM ${Producto.tbl}');
-
-    return result.isNotEmpty
-        ? result.map((c) => Producto.fromJson(c)).toList()
-        : [];
-  }
 
 }

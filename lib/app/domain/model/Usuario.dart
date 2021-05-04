@@ -1,24 +1,9 @@
 
-import '_models.dart';
-import 'package:sqflite/sqlite_api.dart';
+import 'Hilo.dart';
+import 'Mensaje.dart';
+import 'Producto.dart';
 
-class Usuario extends ModelDb {
-  //ATRIBUTOS DE LA BASE DE DATOS
-static final tbl = "Usuario";
-static final dbId = "id";
-static final dbNick = "nick";
-static final dbPassword = "password";
-static final dbEmail = "email";
-static final dbNombre = "nombre";
-static final dbApellidos = "apellidos";
-static final dbNacionalidad = "nacionalidad";
-static final dbFecha_Nacimiento = "fecha_nacimiento";
-static final dbDireccion = "direccion";
-static final dbisAdmin = "isAdmin";
-static final Foto_perfil = "foro_perfil";
-static final Lista_foros = "lista_foros";
-static final Lista_deseados = "lista_deseados";
-static final Historial_Compra = "historial_compra";
+class Usuario {
 
 //ATRIBUTOS
 final int id;
@@ -32,9 +17,10 @@ DateTime fecha_nacimiento;
 String direccion;
 final bool isAdmin;
 String foto_perfil;
-/*final List<Foro> lista_foros;
+final List<Hilo> lista_hilos;
 final List<Producto> lista_deseados;
-final List<Producto> historial_compra;*/
+final List<Producto> historial_compra;
+final List<Mensaje> mensajesUsuario;
 
   //CONSTRUCTOR
   Usuario._(
@@ -48,8 +34,12 @@ final List<Producto> historial_compra;*/
       this.fecha_nacimiento,
       this.direccion,
       this.isAdmin,
-      this.foto_perfil})
-      : super(tbl,dbId, id.toString());
+      this.foto_perfil,
+      this.lista_hilos,
+      this.historial_compra,
+      this.lista_deseados,
+      this.mensajesUsuario})
+      : super();
 
   //MAPEADOR A OBJETO
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario._(
@@ -64,6 +54,10 @@ final List<Producto> historial_compra;*/
     direccion: json["direccion"],
     isAdmin: json["isAdmin"],
     foto_perfil: json["foto_perfil"],
+    lista_hilos: json["lista_hilos"],
+    historial_compra: json["historial_compra"],
+    lista_deseados: json["lista_deseados"],
+    mensajesUsuario: json["mensajesUsuario"],
   );
 
   //MAPEADOR A JSON
@@ -79,6 +73,10 @@ final List<Producto> historial_compra;*/
     "direccion": direccion,
     "isAdmin": isAdmin,
     "foto_perfil": foto_perfil,
+    "lista_hilos": lista_hilos,
+    "historial_compra": historial_compra,
+    "lista_deseados": lista_deseados,
+    "mensajesUsuario": mensajesUsuario,
   };
 
 
@@ -96,15 +94,10 @@ final List<Producto> historial_compra;*/
     direccion,
     isAdmin,
     foto_perfil,
+    lista_hilos,
+    historial_compra,
+    lista_deseados,
+    mensajesUsuario,
   ];
-
-  //SELECT * FROM USUARIO
-  static Future<List<Usuario>> DbSelectAll(Database db) async {
-    final result = await db.rawQuery('SELECT FROM ${Usuario.tbl}');
-
-    return result.isNotEmpty
-        ? result.map((c) => Usuario.fromJson(c)).toList()
-        : [];
-  }
 
 }
