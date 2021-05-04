@@ -13,13 +13,13 @@ final String email;
 String nombre;
 String apellidos;
 String nacionalidad;
-DateTime fecha_nacimiento;
+DateTime fechaNacimiento;
 String direccion;
 final bool isAdmin;
-String foto_perfil;
-final List<Hilo> lista_hilos;
-final List<Producto> lista_deseados;
-final List<Producto> historial_compra;
+String fotoPerfil;
+final List<Hilo> listaHilos;
+final List<Producto> listaDeseados;
+final List<Producto> historialCompra;
 final List<Mensaje> mensajesUsuario;
 
   //CONSTRUCTOR
@@ -31,13 +31,13 @@ final List<Mensaje> mensajesUsuario;
       this.nombre,
       this.apellidos,
       this.nacionalidad,
-      this.fecha_nacimiento,
+      this.fechaNacimiento,
       this.direccion,
       this.isAdmin,
-      this.foto_perfil,
-      this.lista_hilos,
-      this.historial_compra,
-      this.lista_deseados,
+      this.fotoPerfil,
+      this.listaHilos,
+      this.historialCompra,
+      this.listaDeseados,
       this.mensajesUsuario})
       : super();
 
@@ -50,13 +50,13 @@ final List<Mensaje> mensajesUsuario;
     nombre: json["nombre"],
     apellidos: json["apellidos"],
     nacionalidad: json["nacionalidad"],
-    fecha_nacimiento: json["fecha_nacimiento"],
+    fechaNacimiento: json["fechaNacimiento"],
     direccion: json["direccion"],
     isAdmin: json["isAdmin"],
-    foto_perfil: json["foto_perfil"],
-    lista_hilos: json["lista_hilos"],
-    historial_compra: json["historial_compra"],
-    lista_deseados: json["lista_deseados"],
+    fotoPerfil: json["fotoPerfil"],
+    listaHilos: json["listaHilos"],
+    historialCompra: json["historialCompra"],
+    listaDeseados: json["listaDeseados"],
     mensajesUsuario: json["mensajesUsuario"],
   );
 
@@ -69,19 +69,17 @@ final List<Mensaje> mensajesUsuario;
     "nombre": nombre,
     "apellidos": apellidos,
     "nacionalidad": nacionalidad,
-    "fecha_nacimiento": fecha_nacimiento,
+    "fechaNacimiento": fechaNacimiento,
     "direccion": direccion,
     "isAdmin": isAdmin,
-    "foto_perfil": foto_perfil,
-    "lista_hilos": lista_hilos,
-    "historial_compra": historial_compra,
-    "lista_deseados": lista_deseados,
+    "fotoPerfil": fotoPerfil,
+    "listaHilos": listaHilos,
+    "historialCompra": historialCompra,
+    "listaDeseados": listaDeseados,
     "mensajesUsuario": mensajesUsuario,
   };
 
 
-  @override
-  // TODO: implement props
   List<Object> get props => [
     id,
     nick,
@@ -90,13 +88,13 @@ final List<Mensaje> mensajesUsuario;
     nombre,
     apellidos,
     nacionalidad,
-    fecha_nacimiento,
+    fechaNacimiento,
     direccion,
     isAdmin,
-    foto_perfil,
-    lista_hilos,
-    historial_compra,
-    lista_deseados,
+    fotoPerfil,
+    listaHilos,
+    historialCompra,
+    listaDeseados,
     mensajesUsuario,
   ];
 

@@ -1,3 +1,4 @@
+/*
 
 import 'package:equatable/equatable.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,4 +33,4 @@ abstract class ModelDb extends Equatable {
   Future<bool> DbDeleteWhere(Database db,String where,List<dynamic> whereArgs) async {
     return await db.delete(TableName,where: where,whereArgs: whereArgs)>=1;
   }
-}
+}*/

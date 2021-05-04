@@ -10,7 +10,7 @@ final String descripcion;
 final double precio;
 final int stockDisponible;
 final DateTime fechaCreacion;
-final List<Usuario> Lista_usuarios;
+final List<Usuario> listaUsuarios;
 
   //CONSTRUCTOR
   Producto._(
@@ -20,7 +20,7 @@ final List<Usuario> Lista_usuarios;
       this.precio,
       this.stockDisponible,
       this.fechaCreacion,
-      this.Lista_usuarios,})
+      this.listaUsuarios,})
       : super();
 
   //MAPEADOR A OBJETO
@@ -31,7 +31,7 @@ final List<Usuario> Lista_usuarios;
     precio: json["precio"],
     stockDisponible: json["stockDisponible"],
     fechaCreacion: json["fechaCreacion"],
-    Lista_usuarios: json["Lista_usuarios"],
+    listaUsuarios: json["listaUsuarios"],
   );
 
   //MAPEADOR A JSON
@@ -42,12 +42,10 @@ final List<Usuario> Lista_usuarios;
     "precio": precio,
     "stockDisponible": stockDisponible,
     "fechaCreacion": fechaCreacion,
-    "Lista_usuarios": Lista_usuarios,
+    "listaUsuarios": listaUsuarios,
   };
 
 
-  @override
-  // TODO: implement props
   List<Object> get props => [
     id,
     nombre,
@@ -55,7 +53,7 @@ final List<Usuario> Lista_usuarios;
     precio,
     stockDisponible,
     fechaCreacion,
-    Lista_usuarios,
+    listaUsuarios,
   ];
 
 

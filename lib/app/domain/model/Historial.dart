@@ -5,37 +5,35 @@ class Historial {
 
 //ATRIBUTOS
 final int id;
-final List<Mensaje> Mensajes;
-final int Id_Hilo;
+final List<Mensaje> mensajes;
+final int idHilo;
 
   //CONSTRUCTOR
   Historial._(
   {this.id,
-      this.Mensajes,
-      this.Id_Hilo,})
+      this.mensajes,
+      this.idHilo,})
       : super();
 
   //MAPEADOR A OBJETO
   factory Historial.fromJson(Map<String, dynamic> json) => Historial._(
     id: json["id"],
-    Mensajes: json["Mensajes"],
-    Id_Hilo: json["Id_Hilo"],
+    mensajes: json["mensajes"],
+    idHilo: json["idHilo"],
   );
 
   //MAPEADOR A JSON
   Map<String, dynamic> toJson() => {
     "id": id,
-    "Mensajes": Mensajes,
-    "Id_Hilo": Id_Hilo,
+    "mensajes": mensajes,
+    "idHilo": idHilo,
   };
 
 
-  @override
-  // TODO: implement props
   List<Object> get props => [
     id,
-    Mensajes,
-    Id_Hilo,
+    mensajes,
+    idHilo,
   ];
 
 
