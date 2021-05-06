@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:la_tienda_del_infinito/app/ui/pages/loginPage.dart';
+import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -6,11 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'La Tienda del Infinito',
-      theme: ThemeData(
-        primaryColor: Colors.cyan,
-        accentColor: Colors.cyan
-      ),
-      home: MyHomePage(title: 'La Tienda del Infinito'),
+      theme: ThemeData(primaryColor: Colors.white),
+      home: MyHomePage(),
     );
   }
 }
@@ -34,19 +33,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(title: const Text('La Tienda del Infinito'),
-    ),
+      backgroundColor: Color.fromRGBO(180, 226, 248, 4.0),
+      appBar: AppBar(
+        title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+        centerTitle: true,
+        actions: <Widget>[RaisedButton(
+          color: Colors.red,
+          hoverColor: Colors.lightGreen,
+          child: Text("Login", style: TextStyle(
+              fontFamily: "OpenSans",
+              fontWeight: FontWeight.bold,
+              fontSize: 18
+          ),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          },
+        ),
+        ],
+      ),
       drawer: MenuLateral(),
+      // Uso este RaisedButton en el body de forma momentánea para probar
+      // el link con la página de Perfil
+      body: RaisedButton(
+        color: Colors.red,
+        hoverColor: Colors.lightGreen,
+        child: Text("Perfil", style: TextStyle(
+            fontFamily: "OpenSans",
+            fontWeight: FontWeight.bold,
+            fontSize: 18
+        ),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserPerfil()),
+          );
+        },
+      ),
     );
   }
 }
 
-class MenuLateral extends StatelessWidget{
+class MenuLateral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Drawer(
@@ -56,22 +91,43 @@ class MenuLateral extends StatelessWidget{
             accountName: Text("NombredeUsuario"),
             accountEmail: Text("Prueba@hotmail.com"),
             decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage("https://d1bvpoagx8hqbg.cloudfront.net/259/2347b61ae2c02d0f2b100474e2c29f71.jpg")
-                  /*fit: BoxFit.cover*/
-              )
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "https://d1bvpoagx8hqbg.cloudfront.net/259/2347b61ae2c02d0f2b100474e2c29f71.jpg")
+                    /*fit: BoxFit.cover*/
+                    )
             ),
           ),
           new ListTile(
-            leading: Icon(Icons.account_box,color: Colors.cyan, size: 30.0),
-            title: Text("Perfil")
+              leading: Icon(Icons.account_box, color: Colors.cyan, size: 30.0),
+              title: Text("Perfil", style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: "OpenSans"
+              ),
+              )
           ),
           new ListTile(
-              leading: Icon(Icons.attach_email_outlined,color: Colors.cyan, size: 30.0),
-              title: Text("Foro")
+              leading: Icon(Icons.attach_email_outlined,
+                  color: Colors.cyan, size: 30.0),
+              title: Text("Foro", style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: "OpenSans"
+              ),
+              )
           ),
         ],
       ),
     );
   }
-  
 }
+
+/*class Imagen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Image appLogo = new Image(
+        image: new ExactAssetImage("assets/images/AppLogo.png"),
+        height: 5.0,
+        width: 5.0,
+        alignment: FractionalOffset.center);
+  }
+}*/
