@@ -140,7 +140,7 @@ class LoginScreenState extends State<LoginScreen> {
         child: Text(
           'Login',
           style: TextStyle(
-            color: Colors.red,
+            color: Colors.black,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -201,7 +201,7 @@ class LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildSocialBtn(
-                () => print('Login with Google'),
+            () => print('Login with Google'),
             AssetImage(
               'logos/google.jpg',
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/loginPage.dart';
+import 'package:la_tienda_del_infinito/app/ui/pages/registrarPage.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
+import 'package:flutter/services.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -36,48 +38,55 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(180, 226, 248, 4.0),
-      appBar: AppBar(
-        title: Image.asset('images/Logo.png', fit: BoxFit.cover),
-        centerTitle: true,
-        actions: <Widget>[RaisedButton(
-          color: Colors.red,
-          hoverColor: Colors.lightGreen,
-          child: Text("Login", style: TextStyle(
-              fontFamily: "OpenSans",
-              fontWeight: FontWeight.bold,
-              fontSize: 18
-          ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
-          },
+        appBar: AppBar(
+          title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+          centerTitle: true,
+          actions: <Widget>[
+            Container(
+              child: RaisedButton(
+                color: Colors.white60,
+                hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                      fontFamily: "OpenSans",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            )
+          ],
         ),
-        ],
-      ),
-      drawer: MenuLateral(),
-      // Uso este RaisedButton en el body de forma momentánea para probar
-      // el link con la página de Perfil
-      body: RaisedButton(
-        color: Colors.red,
-        hoverColor: Colors.lightGreen,
-        child: Text("Perfil", style: TextStyle(
-            fontFamily: "OpenSans",
-            fontWeight: FontWeight.bold,
-            fontSize: 18
-        ),
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => UserPerfil()),
-          );
-        },
-      ),
-    );
+        drawer: MenuLateral(),
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Stack(children: <Widget>[
+                  Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF61A4A6),
+                          Color(0xFF61A4D8),
+                          Color(0xFF11FAE1),
+                          Color(0xFF398AE5),
+                        ],
+                        stops: [0.1, 0.4, 0.7, 0.9],
+                      ),
+                    ),
+                  ),
+                ]))));
   }
 }
 
@@ -95,25 +104,69 @@ class MenuLateral extends StatelessWidget {
                     image: NetworkImage(
                         "https://d1bvpoagx8hqbg.cloudfront.net/259/2347b61ae2c02d0f2b100474e2c29f71.jpg")
                     /*fit: BoxFit.cover*/
-                    )
+                    )),
+          ),
+          new ListTile(
+            leading: Icon(Icons.account_box, color: Colors.cyan, size: 30.0),
+            title: RaisedButton(
+              color: Color.fromRGBO(240, 165, 165, 4.0),
+              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+              child: Text(
+                "Perfil",
+                style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserPerfil()),
+                );
+              },
             ),
           ),
           new ListTile(
-              leading: Icon(Icons.account_box, color: Colors.cyan, size: 30.0),
-              title: Text("Perfil", style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: "OpenSans"
+            leading: Icon(Icons.attach_email_outlined,
+                color: Colors.cyan, size: 30.0),
+            title: RaisedButton(
+              color: Color.fromRGBO(240, 165, 165, 4.0),
+              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+              child: Text(
+                "Foro",
+                style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
-              )
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegistrarPage()),
+                );
+              },
+            ),
           ),
           new ListTile(
-              leading: Icon(Icons.attach_email_outlined,
-                  color: Colors.cyan, size: 30.0),
-              title: Text("Foro", style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: "OpenSans"
+            leading:
+                Icon(Icons.app_registration, color: Colors.cyan, size: 30.0),
+            title: RaisedButton(
+              color: Color.fromRGBO(240, 165, 165, 4.0),
+              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+              child: Text(
+                "Registro",
+                style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
-              )
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegistrarPage()),
+                );
+              },
+            ),
           ),
         ],
       ),

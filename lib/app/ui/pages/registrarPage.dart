@@ -1,11 +1,11 @@
 import 'dart:html';
-import 'package:la_tienda_del_infinito/app/ui/pages/registrarPage.dart';
+import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
 import 'package:la_tienda_del_infinito/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
-class UserPerfil extends StatefulWidget {
+class RegistrarPage extends StatefulWidget {
   @override
-  UserPerfilState createState() => UserPerfilState();
+  RegistrarPageState createState() => RegistrarPageState();
 }
 
 // Este build y el buildFotoPerfil hay que cambiarlos, solo están asi para ver
@@ -34,7 +34,7 @@ Widget _buildSocialBtn(Function onTap, AssetImage logo) {
   );
 }
 
-class UserPerfilState extends State<UserPerfil> {
+class RegistrarPageState extends State<RegistrarPage> {
   Widget _buildFotoPerfil() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -65,7 +65,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -101,7 +100,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             obscureText: true,
             style: TextStyle(
               color: Colors.black,
@@ -141,7 +139,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.black,
@@ -181,7 +178,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -220,7 +216,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -259,7 +254,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -298,7 +292,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             keyboardType: TextInputType.datetime,
             style: TextStyle(
               color: Colors.black,
@@ -338,7 +331,6 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            enabled: false,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -355,7 +347,66 @@ class UserPerfilState extends State<UserPerfil> {
             ),
           ),
         ),
+        SizedBox(height: 20.0),
       ],
+    );
+  }
+
+  Widget _buildFirstRow() {
+    return Container(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(
+          horizontal: 40.0,
+          vertical: 50.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Registro de usuario',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'OpenSans',
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSecondRow() {
+    return Row(
+      children: [
+        SizedBox(
+          height: 20.0,
+        ),
+        _buildFotoPerfil(),
+        Column(children: [
+          _buildNick(),
+          _buildPassword(),
+          _buildEmail(),
+          _buildNombre(),
+        ]),
+        Column(
+          children: [
+            _buildApellidos(),
+            _buildNacionalidad(),
+            _buildFechaNacimiento(),
+            _buildDireccion(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildThirdRow() {
+    return Row(
+      children: [],
     );
   }
 
@@ -374,13 +425,13 @@ class UserPerfilState extends State<UserPerfil> {
             physics: AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(
               horizontal: 40.0,
-              vertical: 50.0,
+              vertical: 30.0,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Datos de usuario',
+                  'Registro de usuario',
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'OpenSans',
@@ -401,6 +452,23 @@ class UserPerfilState extends State<UserPerfil> {
                 _buildFechaNacimiento(),
                 _buildDireccion(),
                 SizedBox(height: 20.0),
+                RaisedButton(
+                  color: Color.fromRGBO(240, 165, 165, 4.0),
+                  hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                  child: Text(
+                    "Registrarse",
+                    style: TextStyle(
+                        fontFamily: "OpenSans",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                ),
                 RaisedButton(
                   color: Color.fromRGBO(240, 165, 165, 4.0),
                   hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
