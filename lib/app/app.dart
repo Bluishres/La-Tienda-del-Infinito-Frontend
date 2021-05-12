@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:la_tienda_del_infinito/app/ui/pages/foroPage.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/loginPage.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/registrarPage.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
@@ -38,14 +39,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: PreferredSize(
+        preferredSize: Size.fromHeight(62.0),
+          child: AppBar(
           title: Image.asset('images/Logo.png', fit: BoxFit.cover),
           centerTitle: true,
           actions: <Widget>[
             Container(
               child: RaisedButton(
-                color: Colors.white60,
-                hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                color: Color.fromRGBO(240, 165, 165, 4.0),
+                hoverColor: Color.fromRGBO(246, 237, 203, 200.0),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 child: Text(
                   "Login",
                   style: TextStyle(
@@ -62,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )
           ],
+        ),
         ),
         drawer: MenuLateral(),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -142,7 +147,7 @@ class MenuLateral extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistrarPage()),
+                  MaterialPageRoute(builder: (context) => ForoScreen()),
                 );
               },
             ),

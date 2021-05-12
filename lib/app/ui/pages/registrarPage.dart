@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:la_tienda_del_infinito/app/ui/pages/foroPage.dart';
 import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
 import 'package:la_tienda_del_infinito/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -421,6 +422,19 @@ class RegistrarPageState extends State<RegistrarPage> {
         drawer: MenuLateral(),
         body: Container(
           height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF61A4A6),
+                Color(0xFF61A4D8),
+                Color(0xFF11FAD1),
+                Color(0xFF398AE5),
+              ],
+              stops: [0.1, 0.4, 0.7, 0.9],
+            ),
+          ),
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(
@@ -453,14 +467,16 @@ class RegistrarPageState extends State<RegistrarPage> {
                 _buildDireccion(),
                 SizedBox(height: 20.0),
                 RaisedButton(
+                  padding: EdgeInsets.all(20.0),
                   color: Color.fromRGBO(240, 165, 165, 4.0),
                   hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: Text(
                     "Registrarse",
                     style: TextStyle(
                         fontFamily: "OpenSans",
                         fontWeight: FontWeight.bold,
-                        fontSize: 24),
+                        fontSize: 20),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -470,14 +486,16 @@ class RegistrarPageState extends State<RegistrarPage> {
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                 ),
                 RaisedButton(
+                  padding: EdgeInsets.all(20.0),
                   color: Color.fromRGBO(240, 165, 165, 4.0),
                   hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: Text(
                     "Volver",
                     style: TextStyle(
                         fontFamily: "OpenSans",
                         fontWeight: FontWeight.bold,
-                        fontSize: 24),
+                        fontSize: 20),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -548,7 +566,7 @@ class MenuLateral extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistrarPage()),
+                  MaterialPageRoute(builder: (context) => ForoScreen()),
                 );
               },
             ),
