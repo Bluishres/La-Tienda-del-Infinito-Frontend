@@ -54,6 +54,7 @@ final List<Mensaje> mensajesUsuario;
     direccion: json["direccion"],
     isAdmin: json["isAdmin"],
     fotoPerfil: json["fotoPerfil"],
+    //TODO:fix..
     listaHilos: json["listaHilos"],
     historialCompra: json["historialCompra"],
     listaDeseados: json["listaDeseados"],
@@ -78,6 +79,21 @@ final List<Mensaje> mensajesUsuario;
     "listaDeseados": listaDeseados,
     "mensajesUsuario": mensajesUsuario,
   };
+
+factory Usuario.createDemo() {
+  return Usuario._(
+    id: 99999,
+    nick: "manuelguz",
+    password: '123456',
+    email: 'personal@gmail.com',
+    nombre: "Manuel",
+    apellidos: "Guzman",
+    direccion: "C/ Republica argentina, 25",
+    fechaNacimiento: DateTime.now().subtract(Duration(days: 5000)),
+    isAdmin: true,
+    fotoPerfil: 'https://url/profile_photo_23434.png',
+  );
+}
 
 
   List<Object> get props => [

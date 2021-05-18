@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopend/app/domain/model/_models.dart';
 
 final kHintTextStyle = TextStyle(
   color: Colors.grey,
@@ -23,3 +24,7 @@ final kBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+
+class Constans {
+  static final demoUser = Usuario.createDemo();
+}

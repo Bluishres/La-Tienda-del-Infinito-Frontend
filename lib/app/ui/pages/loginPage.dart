@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:la_tienda_del_infinito/utilities/constants.dart';
+import 'package:shopend/app/common/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

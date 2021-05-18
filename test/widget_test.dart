@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:la_tienda_del_infinito/app/app.dart';
+import 'package:shopend/app/app.dart';
 
 
 void main() {

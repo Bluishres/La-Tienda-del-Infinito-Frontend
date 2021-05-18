@@ -1,8 +1,8 @@
-import 'dart:html';
-import 'package:la_tienda_del_infinito/app/ui/pages/foroPage.dart';
-import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
-import 'package:la_tienda_del_infinito/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shopend/app/common/constants.dart';
+
+import '_pages.dart';
+import 'userPerfilPage.dart';
 
 class RegistrarPage extends StatefulWidget {
   @override
@@ -545,6 +545,7 @@ class MenuLateral extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
+                  //TODO:fix
                   MaterialPageRoute(builder: (context) => UserPerfil()),
                 );
               },

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:la_tienda_del_infinito/app/ui/pages/foroPage.dart';
-import 'package:la_tienda_del_infinito/app/ui/pages/loginPage.dart';
-import 'package:la_tienda_del_infinito/app/ui/pages/registrarPage.dart';
-import 'package:la_tienda_del_infinito/app/ui/pages/userPerfilPage.dart';
 import 'package:flutter/services.dart';
+import 'package:shopend/app/ui/pages/_pages.dart';
+import 'package:shopend/app/ui/pages/userPerfilPage.dart';
 
 class MyApp extends StatelessWidget {
+  final String title;
+
+  const MyApp({Key key, this.title}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'La Tienda del Infinito',
+      title: title,
       theme: ThemeData(primaryColor: Colors.white),
       home: MyHomePage(),
     );

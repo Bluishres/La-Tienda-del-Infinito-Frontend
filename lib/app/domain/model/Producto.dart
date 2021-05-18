@@ -1,5 +1,6 @@
 
-import 'package:la_tienda_del_infinito/app/domain/model/Usuario.dart';
+
+import '_models.dart';
 
 class Producto {
 
