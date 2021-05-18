@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shopend/app/router.dart';
 import 'package:shopend/app/ui/pages/_pages.dart';
 import 'package:shopend/app/ui/pages/userPerfilPage.dart';
 
@@ -44,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: PreferredSize(
         preferredSize: Size.fromHeight(62.0),
           child: AppBar(
-          title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+          title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
           centerTitle: true,
           actions: <Widget>[
             Container(
@@ -175,6 +176,25 @@ class MenuLateral extends StatelessWidget {
               },
             ),
           ),
+
+          new ListTile(
+            leading:
+            Icon(Icons.app_registration, color: Colors.cyan, size: 30.0),
+            title: RaisedButton(
+              color: Color.fromRGBO(240, 165, 165, 4.0),
+              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+              child: Text(
+                "Posts",
+                style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              onPressed: () {
+                Navigation.page('/posts/lista',context);
+              },
+            ),
+          )
         ],
       ),
     );

@@ -160,7 +160,7 @@ class LoginScreenState extends State<LoginScreen> {
           _buildSocialBtn(
             () => print('Login with Google'),
             AssetImage(
-              'logos/google.jpg',
+              'assets/logos/google.jpg',
             ),
           ),
         ],
@@ -200,7 +200,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
         centerTitle: true,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(

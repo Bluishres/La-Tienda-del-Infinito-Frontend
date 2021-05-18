@@ -45,7 +45,7 @@ class RegistrarPageState extends State<RegistrarPage> {
           _buildSocialBtn(
             () => print('Login with Google'),
             AssetImage(
-              'logos/google.jpg',
+              'assets/logos/google.jpg',
             ),
           ),
         ],
@@ -416,7 +416,7 @@ class RegistrarPageState extends State<RegistrarPage> {
     return Scaffold(
         backgroundColor: Color.fromRGBO(180, 226, 248, 4.0),
         appBar: AppBar(
-          title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+          title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
           centerTitle: true,
         ),
         drawer: MenuLateral(),

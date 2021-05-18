@@ -184,7 +184,7 @@ class ForoScreenState extends State<ForoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
         centerTitle: true,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(

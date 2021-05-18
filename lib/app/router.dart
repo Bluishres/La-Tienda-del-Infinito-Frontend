@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shopend/app/app_state.dart';
 import 'package:shopend/app/locator.dart';
 import 'package:shopend/app/ui/pages/_pages.dart';
+import 'package:shopend/app/ui/pages/post/post_lista_page.dart';
 
 class Navigation {
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -16,7 +17,18 @@ class Navigation {
           //_navigateTo(ctx, (ctx) => ConfigurationPage(), onPressBefore: onPressBefore, onPressAfter: onPressAfter);
           break;
       }
-    } else if (path.startsWith("/profile/")) {
+    } else if (path.startsWith("/posts/")) {
+     switch (path) {
+       case "/posts/lista":
+       _navigateTo(ctx, (ctx) => PostListaPage(), onPressBefore: onPressBefore, onPressAfter: onPressAfter);
+         break;
+
+       case "/posts/detalle":
+         _navigateTo(ctx, (ctx) => PostDetail(model: params[0]),
+             onPressBefore: onPressBefore, onPressAfter: onPressAfter);
+         break;
+     }
+   } else if (path.startsWith("/profile/")) {
       switch (path) {
         case "/profile/":
           // _navigateTo(ctx, (ctx) => UserProfilePage(), onPressBefore: onPressBefore, onPressAfter: onPressAfter);

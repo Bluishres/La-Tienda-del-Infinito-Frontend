@@ -20,12 +20,12 @@ class AppConfig {
 
   static Future<AppConfig> forEnviroment(String env) async {
     final contents = await rootBundle.loadString(
-      'assets/config/${env}.json',
+      'assets/config/$env.json',
     );
 
     final json = jsonDecode(contents);
 
-    String baseUrlAuth = json['baseUrlAuth'] ?? "";
+    String baseUrlAuth = json['baseUrlAuth'] ?? "" ;
     String baseUrlResource = json['baseUrlResource'] ?? "";
     int timeout = json['timeout'] ?? 10000;
     String appTitle = json['appTitle'] ?? "";
@@ -37,7 +37,7 @@ class AppConfig {
 }
 
 class PreferencesConfig {
-  static const String appkey = 'csiapp';
+  static const String appkey = 'shopend';
 }
 
 AppConfig appConfig;

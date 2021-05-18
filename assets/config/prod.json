@@ -1,5 +1,6 @@
 {
   "baseUrlAuth": "https://{dns-real-server}:44337/api/",
   "baseUrlResource": "https://{dns-real-server}:44319/api/",
-  "timeout": 12000
+  "timeout": 12000,
+  "appTitle": "La tienda del infinito"
 }

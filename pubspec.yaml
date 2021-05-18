@@ -85,18 +85,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/config/
+    - assets/logos/
+    - assets/mock_data/
+
 # Para los icons de las apps. El icono de la app una vez instalada en el dispositivo
 flutter_icons:
   android: true
   ios: false
   image_path: "assets/icons/icon_prod.png"
-
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/
-    - assets/config/
-    - assets/icons/
-    - assets/mock_data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -43,12 +43,6 @@ void mainCommon({@required String flavour}) async {
     //finalizamos la carga restante de la app. Esto lo realizamos así, para poder tener registrado el AppState en locator, y como mínimo ya tener cargado el usuario
     appstate.finishLoadState();
 
-    //TODO: PUSHNOTIFICATION-ENABLED
-    //await PushNotificationsManager().init();
-
-    //subcribe a notifications-topics by user-config
-    //await appstate?.user?.subscribeToNotificationsTopics();
-
     runApp(
       MyApp(
         title: config.appTitle,

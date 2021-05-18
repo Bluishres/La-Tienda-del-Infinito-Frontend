@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/constants.dart';
 
+import '../../router.dart';
 import '_pages.dart';
 
 class UserPerfil extends StatefulWidget {
@@ -44,7 +45,7 @@ class UserPerfilState extends State<UserPerfil> {
           _buildSocialBtn(
             () => print('Login with Google'),
             AssetImage(
-              'logos/google.jpg',
+              'assets/logos/google.jpg',
             ),
           ),
         ],
@@ -364,7 +365,7 @@ class UserPerfilState extends State<UserPerfil> {
     return Scaffold(
         backgroundColor: Color.fromRGBO(180, 226, 248, 4.0),
         appBar: AppBar(
-          title: Image.asset('images/Logo.png', fit: BoxFit.cover),
+          title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
           centerTitle: true,
         ),
         drawer: MenuLateral(),
@@ -524,6 +525,25 @@ class MenuLateral extends StatelessWidget {
               },
             ),
           ),
+
+          new ListTile(
+            leading:
+            Icon(Icons.app_registration, color: Colors.cyan, size: 30.0),
+            title: RaisedButton(
+              color: Color.fromRGBO(240, 165, 165, 4.0),
+              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+              child: Text(
+                "Posts",
+                style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              onPressed: () {
+                Navigation.page('/posts/lista',context);
+              },
+            ),
+          )
         ],
       ),
     );

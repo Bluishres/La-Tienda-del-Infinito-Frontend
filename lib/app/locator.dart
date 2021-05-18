@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shopend/app/data/repository/post/MockPostRepository.dart';
+import 'package:shopend/app/data/repository/post/PostRepository.dart';
+import 'package:shopend/app/data/repository/post/ProdPostRepository.dart';
 
 import 'common/event_manager.dart';
 import 'config.dart';
@@ -17,15 +20,17 @@ void setupLocator(Env env,AppConfig config) async {
   locator.registerLazySingleton<EventManager>(() => EventManager.create());
   locator.registerLazySingleton<ConnectivityService>(() => ConnectivityService());
 
-
   if (env is MockEnv) {
     locator.registerLazySingleton<AuthRepository>(() => MockAuthRepository());
+    locator.registerLazySingleton<PostRepository>(() => MockPostRepository());
 
   } else if (env is DevEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
+    locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
 
   } else if (env is ProdEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
+    locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
   }
 }
 

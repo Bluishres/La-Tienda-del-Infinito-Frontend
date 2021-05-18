@@ -6,3 +6,7 @@ export './error/under_construction_error_page.dart';
 export './foroPage.dart';
 export './loginPage.dart';
 export './registrarPage.dart';
+
+//POST
+export './post/post_detail.dart';
+export './post/post_lista_page.dart';

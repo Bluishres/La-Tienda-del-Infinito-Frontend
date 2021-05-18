@@ -184,6 +184,25 @@ class APIService {
     }
   }*/
 
+  Future<dynamic> callGetMasterPrueba(Endpoint endpoint, {String id = null, Map<String, dynamic> data = null}) async {
+
+    final uri = _apiResource.endpointUriMasterPrueba(endpoint,id:id);
+
+    Options options = Options();
+    options.headers = {"Authorization": "Bearer $_token"};
+    options.method = "GET";
+
+    try {
+      Response resp = await _httpDio.request(uri.toString(), data: data, options: options);
+
+      return resp.data;
+    } on DioError catch (e) {
+      //Logica para Token-expired
+      //_logError(e);
+      throw e;
+    }
+  }
+
   Future<dynamic> callGetMaster(Endpoint endpoint, {String id = null, Map<String, dynamic> data = null}) async {
 
     final uri = _apiResource.endpointUriMaster(endpoint,id:id);
