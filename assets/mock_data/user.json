@@ -1,0 +1,28 @@
+[
+  {
+    "admin": true,
+    "apellidos": "iesvi",
+    "direccion": "Calle Japon",
+    "email": "proyecto.admin@hotmail.com",
+    "fecha_Nacimiento": "2021-05-19T18:56:10.848Z",
+    "foto_Perfil": "https://url/profile_photo_23434.png",
+    "id": 1,
+    "nacionalidad": "Española",
+    "nick": "admin1",
+    "nombre": "admin",
+    "password": "123456"
+  },
+  {
+    "admin": false,
+    "apellidos": "iesvi",
+    "direccion": "Calle Minuit",
+    "email": "proyecto.user1@hotmail.com",
+    "fecha_Nacimiento": "2021-05-19T18:56:10.848Z",
+    "foto_Perfil": "https://url/profile_photo_23434.png",
+    "id": 1,
+    "nacionalidad": "Española",
+    "nick": "user1",
+    "nombre": "user",
+    "password": "12345"
+  }
+]

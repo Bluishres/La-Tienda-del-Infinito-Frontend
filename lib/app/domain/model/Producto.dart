@@ -11,7 +11,7 @@ final String descripcion;
 final double precio;
 final int stockDisponible;
 final DateTime fechaCreacion;
-final List<Usuario> listaUsuarios;
+final List<UserModel> listaUsuarios;
 
   //CONSTRUCTOR
   Producto._(

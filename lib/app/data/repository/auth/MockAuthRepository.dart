@@ -27,7 +27,7 @@ class MockAuthRepository extends AuthRepository {
 
     if (username==userOk && password==passOk) {
       _token='token';
-      _appState.AssignLoggedUser(Usuario.createDemo()); //Asignar al estado el usuario recien logado.
+      _appState.AssignLoggedUser(UserModel.createDemo()); //Asignar al estado el usuario recien logado.
     } else {
       _token ="";
     }
