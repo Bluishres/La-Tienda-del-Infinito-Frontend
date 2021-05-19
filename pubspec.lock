@@ -411,11 +411,9 @@ packages:
   logger:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "9ee56c3806fc19e178fc5b68c19390e65ad6d19a"
-      url: "git@github.com:leisim/logger.git"
-    source: git
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   logging:
     dependency: transitive
