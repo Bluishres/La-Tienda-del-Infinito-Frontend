@@ -1,7 +1,8 @@
 export './Hilo.dart';
-export './Historial.dart';
+export './ListaUsuariosDeseado.dart';
 export './Mensaje.dart';
 export './Producto.dart';
-export './UserModel.dart';
+export './Usuario.dart';
+export './Ticket.dart';
 export './post_model.dart';
 

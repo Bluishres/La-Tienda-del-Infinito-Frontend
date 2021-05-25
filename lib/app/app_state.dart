@@ -11,7 +11,7 @@ class AppState {
   static const String appstateKey = 'appstate';
   static const String keyUserLogged = 'userlogged';
 
-  UserModel _user;
+  Usuario _user;
 
   SharedPreferences _sp;
   bool _initializedApp = false;
@@ -36,7 +36,7 @@ class AppState {
     try {
       var data = AppState.loadObject(keyUserLogged);
       if (data != null)
-        st._user = UserModel.fromJson(data);
+        st._user = Usuario.fromJson(data);
       else
         st._user = null;
     } catch (ex) {
@@ -75,12 +75,12 @@ class AppState {
   ConnectivityStatus get ConnectivityState => _connectivityStatus;
 
   //PROPERTYES OBJETS
-  UserModel get user => _user;
+  Usuario get user => _user;
 
   bool get hasUser => _user != null;
   bool get isAppInitialized => _initializedApp;
 
-  void AssignLoggedUser(UserModel user) {
+  void AssignLoggedUser(Usuario user) {
     assert(user != null);
     _user = user;
     AppState.saveObject(keyUserLogged, user);

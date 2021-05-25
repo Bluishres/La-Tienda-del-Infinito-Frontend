@@ -1,38 +1,41 @@
+import 'dart:convert';
+import '_models.dart';
 
 class Mensaje {
+  Mensaje({
+    this.fechaCreacion,
+    this.id,
+    this.mensaje,
+  });
 
-//ATRIBUTOS
-final int id;
-final int idAutor;
-final DateTime fechaCreacion;
+  final DateTime fechaCreacion;
+  final int id;
+  final String mensaje;
 
-  //CONSTRUCTOR
-  Mensaje._(
-  {this.id,
-      this.idAutor,
-      this.fechaCreacion,})
-      : super();
+  Mensaje copyWith({
+    DateTime fechaCreacion,
+    int id,
+    String mensaje,
+  }) =>
+      Mensaje(
+        fechaCreacion: fechaCreacion ?? this.fechaCreacion,
+        id: id ?? this.id,
+        mensaje: mensaje ?? this.mensaje,
+      );
 
-  //MAPEADOR A OBJETO
-  factory Mensaje.fromJson(Map<String, dynamic> json) => Mensaje._(
+  factory Mensaje.fromRawJson(String str) => Mensaje.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Mensaje.fromJson(Map<String, dynamic> json) => Mensaje(
+    fechaCreacion: DateTime.parse(json["fecha_creacion"]),
     id: json["id"],
-    idAutor: json["idAutor"],
-    fechaCreacion: json["fechaCreacion"],
+    mensaje: json["mensaje"],
   );
 
-  //MAPEADOR A JSON
   Map<String, dynamic> toJson() => {
+    "fecha_creacion": fechaCreacion.toIso8601String(),
     "id": id,
-    "idAutor": idAutor,
-    "fechaCreacion": fechaCreacion,
+    "mensaje": mensaje,
   };
-
-
-  List<Object> get props => [
-    id,
-    idAutor,
-    fechaCreacion,
-  ];
-
-
 }

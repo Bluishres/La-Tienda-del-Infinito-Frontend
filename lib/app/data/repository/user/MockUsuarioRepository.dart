@@ -2,64 +2,82 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:shopend/app/domain/model/UserModel.dart';
+import 'package:shopend/app/domain/model/Usuario.dart';
 import 'package:shopend/app/domain/model/post_model.dart';
 
 import 'UserRepository.dart';
 
-class MockPostRepository implements UserRepository {
+class MockUsuarioRepository implements UserRepository {
   /// Arreglar el postUser
   @override
-  Future<UserModel> postUser({int id}) async {
+  Future<Usuario> postUser({int id}) async {
     await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
 
     var list = jsonDecode(jsondata) as List;
 
     var lista = list.map((item) {
-      return UserModel.fromJson(item);
+      return Usuario.fromJson(item);
     }).toList();
 
     return lista.firstWhere((post) => post.id == id);
   }
 
   @override
-  Future<List<UserModel>> getAllUser() async {
+  Future<List<Usuario>> getAllUser() async {
     await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
 
     var list = jsonDecode(jsondata) as List;
 
     var lista = list.map((item) {
-      return UserModel.fromJson(item);
+      return Usuario.fromJson(item);
     }).toList();
 
     return lista;
   }
 
   @override
-  Future<UserModel> getUser({int id}) async {
+  Future<Usuario> getUser({int id}) async {
     await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
 
     var list = jsonDecode(jsondata) as List;
 
     var lista = list.map((item) {
-      return UserModel.fromJson(item);
+      return Usuario.fromJson(item);
     }).toList();
 
     return lista.firstWhere((post) => post.id == id);
   }
 
   @override
-  Future<UserModel> putUser({UserModel userModel}) {
-    // TODO: implement putUser
+  Future<void> deleteUsuario({int id}) {
+    // TODO: implement deleteUsuario
     throw UnimplementedError();
   }
 
   @override
-  Future<void> deleteUser({int id}) {
-    // TODO: implement deleteUser
+  Future<List<Usuario>> getAllUsuarios() {
+    // TODO: implement getAllUsuarios
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Usuario> getUsuario({int id}) {
+    // TODO: implement getUsuario
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Usuario> postUsuario() {
+    // TODO: implement postUsuario
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Usuario> putUsuario({Usuario userModel}) {
+    // TODO: implement putUsuario
     throw UnimplementedError();
   }
 }

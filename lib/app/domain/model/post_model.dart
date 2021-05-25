@@ -3,6 +3,7 @@
 //     final postModel = postModelFromJson(jsonString);
 
 import 'dart:convert';
+import '_models.dart';
 
 class PostModel {
   PostModel({

@@ -3,17 +3,17 @@ import 'package:shopend/app/domain/model/_models.dart';
 
 abstract class UserRepository {
   /// Registro usuario
-  Future<UserModel> postUser();
+  Future<Usuario> postUsuario();
 
   /// Consultar usuarios
-  Future<List<UserModel>> getAllUser();
+  Future<List<Usuario>> getAllUsuarios();
 
   /// Consultar Perfil usuario
-  Future<UserModel> getUser({int id});
+  Future<Usuario> getUsuario({int id});
 
   /// Modificar usuario
-  Future<UserModel> putUser({UserModel userModel});
+  Future<Usuario> putUsuario({Usuario userModel});
 
   /// Eliminar usuario
-  Future<void> deleteUser({int id});
+  Future<void> deleteUsuario({int id});
 }

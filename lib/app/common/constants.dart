@@ -26,5 +26,5 @@ final kBoxDecorationStyle = BoxDecoration(
 );
 
 class Constans {
-  static final demoUser = UserModel.createDemo();
+  static final demoUser = Usuario.createDemo();
 }

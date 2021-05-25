@@ -70,7 +70,7 @@ class ServerAuthRepository extends AuthRepository {
         if (!isDemoUser) {
           //var personalInfo = await apiService.callUserInfo(userId);
 
-          var user = UserModel.fromJson(null);  //TODO fix this
+          var user = Usuario.fromJson(null);  //TODO fix this
 
           _appState.AssignLoggedUser(user); //Asignar al estado el usuario recien logado.
 
