@@ -4,6 +4,7 @@ import 'package:shopend/app/domain/commands/_commands.dart';
 enum Endpoint {
   masterProducto,
   posts,
+  user_getAll,
 }
 
 class API {
@@ -74,6 +75,7 @@ class API {
   static Map<Endpoint, String> _paths = {
     Endpoint.masterProducto: 'master/producto/',
     Endpoint.posts: 'todos/',
+    Endpoint.user_getAll: 'latiendadelinfinito/user/getAll',
 
   };
 }

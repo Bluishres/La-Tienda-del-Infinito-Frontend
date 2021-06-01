@@ -1,6 +1,6 @@
 {
   "baseUrlAuth": "https://10.0.2.2:44337/api/",
-  "baseUrlResource": "https://jsonplaceholder.typicode.com/",
+  "baseUrlResource": "http://latiendadelinfinito.ddns.net/api/",
   "timeout": 12000,
   "appTitle": "Tienda infinito-Dev"
 }

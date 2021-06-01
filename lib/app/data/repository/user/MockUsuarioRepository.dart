@@ -2,12 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:shopend/app/common/logger.dart';
+import 'package:shopend/app/data/provider/api.dart';
+import 'package:shopend/app/data/provider/api_service.dart';
 import 'package:shopend/app/domain/model/Usuario.dart';
 import 'package:shopend/app/domain/model/post_model.dart';
 
+import '../../../locator.dart';
 import 'UserRepository.dart';
 
 class MockUsuarioRepository implements UserRepository {
+
+  final apiService = locator<APIService>();
   /// Arreglar el postUser
   @override
   Future<Usuario> postUser({int id}) async {
@@ -26,15 +32,25 @@ class MockUsuarioRepository implements UserRepository {
   @override
   Future<List<Usuario>> getAllUser() async {
     await Future.delayed(Duration(seconds: 2));
-    final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
+    try {
+      var data = await apiService.callGetMasterPrueba(Endpoint.user_getAll);
 
-    var list = jsonDecode(jsondata) as List;
+      //Procesar
+      var lista = (data as List).map((item) {
+        try {
+          return Usuario.fromJson(item);
+        } catch (_) {
+          logger.e(_);
+          return Usuario();
+        }
+      }).toList();
 
-    var lista = list.map((item) {
-      return Usuario.fromJson(item);
-    }).toList();
+      var validItems = lista.where((item) => item.id != null).toList();
 
-    return lista;
+      return validItems;
+    } on Exception catch (ex, s) {
+      throw ex;
+    }
   }
 
   @override
@@ -54,24 +70,6 @@ class MockUsuarioRepository implements UserRepository {
   @override
   Future<void> deleteUsuario({int id}) {
     // TODO: implement deleteUsuario
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Usuario>> getAllUsuarios() {
-    // TODO: implement getAllUsuarios
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Usuario> getUsuario({int id}) {
-    // TODO: implement getUsuario
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Usuario> postUsuario() {
-    // TODO: implement postUsuario
     throw UnimplementedError();
   }
 

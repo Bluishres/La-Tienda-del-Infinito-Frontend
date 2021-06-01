@@ -189,7 +189,7 @@ class APIService {
     final uri = _apiResource.endpointUriMasterPrueba(endpoint,id:id);
 
     Options options = Options();
-    options.headers = {"Authorization": "Bearer $_token"};
+/*    options.headers = {"Authorization": "Bearer $_token"};*/
     options.method = "GET";
 
     try {

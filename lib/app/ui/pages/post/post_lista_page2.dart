@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopend/app/app.dart';
 import 'package:shopend/app/data/repository/post/PostRepository.dart';
-import 'package:shopend/app/data/repository/user/UserRepository.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
 import 'package:shopend/app/router.dart';
@@ -15,17 +14,17 @@ class PostListaPage extends StatefulWidget {
 }
 
 class _PostListaPageState extends State<PostListaPage> {
-  List<Usuario> _users = null;
-  UserRepository _repo = locator<UserRepository>();
+  List<PostModel> _posts = null;
+  PostRepository _repo = locator<PostRepository>();
   bool _isloading = true;
 
   @override
   void initState() {
     super.initState();
 
-    _repo.getAllUser().then((list) => setState(() {
+    _repo.getAll().then((list) => setState(() {
           _isloading = false;
-          _users = list;
+          _posts = list;
         }));
 
     //var _posts = await _repo.getAll();
@@ -42,19 +41,19 @@ class _PostListaPageState extends State<PostListaPage> {
             ? Center(
                 child: LoadingIndicator(),
               )
-            : _users == null
+            : _posts == null
                 ? Center(
                     child: Text("Errror al obtener los posts"),
                   )
-                : _createListView(context, _users),
+                : _createListView(context, _posts),
       ),
     );
   }
 }
 
-Widget _createListView(BuildContext context, List<Usuario> users) {
+Widget _createListView(BuildContext context, List<PostModel> posts) {
   return new ListView.builder(
-    itemCount: users.length,
+    itemCount: posts.length,
     itemBuilder: (context, i) => new Column(
       children: <Widget>[
         new Divider(
@@ -62,20 +61,20 @@ Widget _createListView(BuildContext context, List<Usuario> users) {
           thickness: 1,
         ),
         new ListTile(
-          onTap: () => Navigation.page("/posts/detalle", context, params: [users[i]]),
+          onTap: () => Navigation.page("/posts/detalle", context, params: [posts[i]]),
           leading: Icon(Icons.post_add),
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                users[i].id.toString(),
+                posts[i].id.toString(),
                 style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '${users[i].nombre.toString()} ${users[i].apellidos.toString()}',
+                    '${posts[i].userId.toString()}',
                     style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
                   ),
                 ),
@@ -83,7 +82,7 @@ Widget _createListView(BuildContext context, List<Usuario> users) {
             ],
           ),
           subtitle: Text(
-            users[i].email,
+            posts[i].title,
             style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
           ),
         ),

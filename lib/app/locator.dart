@@ -23,6 +23,7 @@ void setupLocator(Env env,AppConfig config) async {
   if (env is MockEnv) {
     locator.registerLazySingleton<AuthRepository>(() => MockAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => MockPostRepository());
+    locator.registerLazySingleton<UserRepository>(() => MockUsuarioRepository());
 
   } else if (env is DevEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
