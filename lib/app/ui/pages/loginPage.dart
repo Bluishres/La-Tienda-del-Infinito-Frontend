@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shopend/app/common/constants.dart';
@@ -9,6 +10,47 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<Function> prueba() async{
+
+  }
+  void _initsesion() async{
+    UserCredential userCredential;
+    try {
+      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: "prueba@hotmail.com",
+          password: "123456"
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+    print(userCredential.toString());
+  }
+ /* void _initsesion() async{
+    UserCredential userCredential;
+    try {
+      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: "barry.allen@example.com",
+          password: "SuperSecretPassword!"
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+    print(userCredential.toString());
+  }*/
+
 
   Widget _buildEmailTF() {
     return Column(
@@ -88,7 +130,7 @@ class LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.symmetric(vertical: 50.0),
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () => _initsesion(),
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),

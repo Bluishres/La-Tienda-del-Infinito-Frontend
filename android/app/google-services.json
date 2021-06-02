@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "667468334753",
+    "project_id": "la-tienda-del-infinito",
+    "storage_bucket": "la-tienda-del-infinito.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667468334753:android:98aa5f8f3ebcb2401292e0",
+        "android_client_info": {
+          "package_name": "com.example.la_tienda_del_infinito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667468334753-qdhtkejkrg94emvo80ubcq169n4rr6sf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaALzhxliEy4EJB9csEbuDUTYk2Xhos1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667468334753-qdhtkejkrg94emvo80ubcq169n4rr6sf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -60,11 +60,11 @@ class APIService {
       if (resp.statusCode == 200) {
         return resp.data;
       } else if (resp.statusCode == 500) {
-        logger.e('Request USUARIO/CONTRASEÑA NO VÁLIDO. [${resp.request } status-code:${resp.statusCode}]');
+        logger.e('Request USUARIO/CONTRASEÑA NO VÁLIDO. [ status-code:${resp.statusCode}]');
         throw SignInUserPassNoValidException();
       // ignore: lines_longer_than_80_chars
       } else {
-        logger.e('Request status-code no-valid. [${resp.request} status-code:${resp.statusCode}]');
+        logger.e('Request status-code no-valid. [ status-code:${resp.statusCode}]');
         throw SignInNoValidException();
       }
     } on DioError catch (e) {
