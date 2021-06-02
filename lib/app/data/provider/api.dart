@@ -5,6 +5,7 @@ enum Endpoint {
   masterProducto,
   posts,
   user_getAll,
+  product_getAll
 }
 
 class API {
@@ -76,6 +77,6 @@ class API {
     Endpoint.masterProducto: 'master/producto/',
     Endpoint.posts: 'todos/',
     Endpoint.user_getAll: 'latiendadelinfinito/user/getAll',
-
+    Endpoint.product_getAll: 'latiendadelinfinito/product/getAll'
   };
 }
