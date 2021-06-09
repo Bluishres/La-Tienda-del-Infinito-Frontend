@@ -1,6 +1,6 @@
 {
-  "baseUrlAuth": "https://10.0.2.2:44337/api/",
-  "baseUrlResource": "http://latiendadelinfinito.ddns.net/api/",
+  "baseUrlAuth": "http://10.0.2.2:8080/api/",
+  "baseUrlResource": "http://10.0.2.2:8080/api/",
   "timeout": 12000,
   "appTitle": "Tienda infinito-Dev"
 }

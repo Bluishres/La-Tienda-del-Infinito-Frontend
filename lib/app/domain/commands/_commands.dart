@@ -1,10 +1,8 @@
-
-
-
+// @dart=2.9
 class CommandBase {
-  final String methodName;
+/*  final String methodName;
 
-  CommandBase(this.methodName);
+  CommandBase(this.methodName);*/
 
   Map<String, dynamic> toJson() {
     return {};

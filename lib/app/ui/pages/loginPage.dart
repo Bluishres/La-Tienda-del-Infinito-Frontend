@@ -1,7 +1,12 @@
+// @dart=2.9
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shopend/app/common/GeneralToast.dart';
 import 'package:shopend/app/common/constants.dart';
+import 'package:shopend/app/ui/pages/registrarPage.dart';
+import 'package:shopend/app/ui/widgets/indicator/loading_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,47 +14,70 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  bool _rememberMe = false;
+  final password = TextEditingController();
+  final email = TextEditingController();
+  bool _isValidatebad = false;
+  bool _isloading = false;
+  bool _isError = false;
+  String errorUser = "";
+  String errorPass = "";
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<Function> prueba() async{
-
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    password.dispose();
+    email.dispose();
+    super.dispose();
   }
+
+  void _inicializar() {
+    setState(() {
+      _isloading = true;
+      _isError = false;
+      password.text.isEmpty || email.text.isEmpty ? _isValidatebad = true : _isValidatebad = false;
+      errorUser = "";
+      errorPass = "";
+    });
+  }
+
   void _initsesion() async{
+    _inicializar();
     UserCredential userCredential;
     try {
       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: "prueba@hotmail.com",
-          password: "123456"
+          email: email.text,
+          password: password.text
       );
+      setState(() {
+        _isloading = false;
+      });
+      SuccessToast('Iniciada sesion correctamente.');
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        setState(() {
+          _isError = true;
+          errorUser = "usuario no encontrado.";
+          _isloading = false;
+        });
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        setState(() {
+          _isError = true;
+          errorPass = "la contraseña no es correcta.";
+          _isloading = false;
+        });
         print('Wrong password provided for that user.');
+      }else{
+        setState(() {
+          _isError = true;
+          _isloading = false;
+        });
       }
     }
-    print(userCredential.toString());
   }
- /* void _initsesion() async{
-    UserCredential userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: "barry.allen@example.com",
-          password: "SuperSecretPassword!"
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-    print(userCredential.toString());
-  }*/
 
 
   Widget _buildEmailTF() {
@@ -67,6 +95,7 @@ class LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: email,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.black,
@@ -84,6 +113,13 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+        _isValidatebad && email.text.isEmpty
+            ? Text('Debes introducir email.',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.red))
+            : SizedBox(height: 0),
       ],
     );
   }
@@ -103,6 +139,7 @@ class LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: password,
             obscureText: true,
             style: TextStyle(
               color: Colors.black,
@@ -120,6 +157,13 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+        _isValidatebad && password.text.isEmpty
+            ? Text('Debes introducir password.',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.red))
+            : SizedBox(height: 0),
       ],
     );
   }
@@ -150,66 +194,6 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSignInWithText() {
-    return Column(
-      children: <Widget>[
-        Text(
-          '- O -',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(height: 20.0),
-        Text(
-          'Inicia Sesión con: ',
-          style: kLabelStyle,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialBtnRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () => print('Sign Up Button Pressed'),
@@ -224,14 +208,6 @@ class LoginScreenState extends State<LoginScreen> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            TextSpan(
-              text: 'Regístrate',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ],
         ),
       ),
@@ -242,12 +218,15 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
+        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover, width: 170.0, height: 230.0),
         centerTitle: true,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
+        child: _isloading
+            ? Center(
+          child: LoadingIndicator(),
+        ) : GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
@@ -274,7 +253,7 @@ class LoginScreenState extends State<LoginScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 80.0,
+                    vertical: 60.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -294,10 +273,30 @@ class LoginScreenState extends State<LoginScreen> {
                         height: 30.0,
                       ),
                       _buildPasswordTF(),
+                      _isError ? Text('Error , ' + errorUser + " " + errorPass,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red)) : SizedBox(height: 0),
                       _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
                       _buildSignupBtn(),
+                      RaisedButton(
+                                    color: Color.fromRGBO(240, 165, 165, 4.0),
+                                    hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                                    child: Text(
+                                      "Registro",
+                                      style: TextStyle(
+                                          fontFamily: "OpenSans",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => RegistrarPage()),
+                                      );
+                                    },
+                                  ),
                     ],
                   ),
                 ),

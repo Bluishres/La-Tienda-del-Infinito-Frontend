@@ -8,6 +8,7 @@ import 'common/event_manager.dart';
 import 'config.dart';
 import 'data/provider/ConectivityProvider.dart';
 import 'data/repository/_repositorys.dart';
+import 'data/repository/user/ProdUsuarioRepository.dart';
 
 final locator = GetIt.instance;
 
@@ -29,10 +30,16 @@ void setupLocator(Env env,AppConfig config) async {
   } else if (env is DevEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
+    locator.registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
+    locator.registerLazySingleton<ProductRepository>(() => ProdProductoRepository());
+    locator.registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
 
   } else if (env is ProdEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
+    locator.registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
+    locator.registerLazySingleton<ProductRepository>(() => ProdProductoRepository());
+    locator.registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
   }
 }
 

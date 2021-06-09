@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:logger/logger.dart';
 
 var logger = Logger(

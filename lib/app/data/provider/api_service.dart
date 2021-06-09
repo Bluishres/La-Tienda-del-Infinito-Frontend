@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:convert';
 import 'dart:io';
 
@@ -123,6 +124,124 @@ class APIService {
         ..headers = {'Authorization': 'Bearer $_token'};
 
       var resp = await _httpAuthDio.post(uri.toString(), data: json.encode(data),options: options);
+
+      return resp.data;
+
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response.statusCode >= 400 && e.response.statusCode<500) {
+          throw const HttpRequestError('No autorizado');
+        }
+
+        if (e.response.toString().toUpperCase().contains('INCORRECT PASSWORD')) {
+          throw const HttpRequestError('Contraseña actual incorrecta');
+        }
+
+        throw HttpRequestError(e.response?.toString());
+      }
+
+      //_logError(e);
+      throw HttpRequestError(e.response?.statusMessage ?? "Timeout");
+    }
+  }
+
+  Future<dynamic> requestPut(Endpoint endpoint, CommandBase command) async {
+    try {
+      final uri = _apiResource.endpointUriCommand(endpoint,cmd: command);
+
+      var data = command.toJson();
+
+      final options = Options()
+        ..headers = {'Authorization': 'Bearer $_token'};
+
+      var resp = await _httpAuthDio.put(uri.toString(), data: json.encode(data),options: options);
+
+      return resp.data;
+
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response.statusCode >= 400 && e.response.statusCode<500) {
+          throw const HttpRequestError('No autorizado');
+        }
+
+        if (e.response.toString().toUpperCase().contains('INCORRECT PASSWORD')) {
+          throw const HttpRequestError('Contraseña actual incorrecta');
+        }
+
+        throw HttpRequestError(e.response?.toString());
+      }
+
+      //_logError(e);
+      throw HttpRequestError(e.response?.statusMessage ?? "Timeout");
+    }
+  }
+
+  Future<dynamic> requestDelete(Endpoint endpoint, {String id = null}) async {
+    try {
+      final uri = _apiResource.endpointUriMasterPrueba(endpoint,id:id);
+
+      final options = Options()
+        ..headers = {'Authorization': 'Bearer $_token'};
+
+      var resp = await _httpAuthDio.delete(uri.toString(),options: options);
+
+      return resp.data;
+
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response.statusCode >= 400 && e.response.statusCode<500) {
+          throw const HttpRequestError('No autorizado');
+        }
+
+        if (e.response.toString().toUpperCase().contains('INCORRECT PASSWORD')) {
+          throw const HttpRequestError('Contraseña actual incorrecta');
+        }
+
+        throw HttpRequestError(e.response?.toString());
+      }
+
+      //_logError(e);
+      throw HttpRequestError(e.response?.statusMessage ?? "Timeout");
+    }
+  }
+
+  Future<dynamic> requestGetID(Endpoint endpoint, {int id = 0}) async {
+    try {
+      final uri = _apiResource.endpointUriId(endpoint,id: id);
+
+      final options = Options()
+        ..headers = {'Authorization': 'Bearer $_token'};
+
+      var resp = await _httpAuthDio.get(uri.toString(),options: options);
+
+      return resp.data;
+
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response.statusCode >= 400 && e.response.statusCode<500) {
+          throw const HttpRequestError('No autorizado');
+        }
+
+        if (e.response.toString().toUpperCase().contains('INCORRECT PASSWORD')) {
+          throw const HttpRequestError('Contraseña actual incorrecta');
+        }
+
+        throw HttpRequestError(e.response?.toString());
+      }
+
+      //_logError(e);
+      throw HttpRequestError(e.response?.statusMessage ?? "Timeout");
+    }
+  }
+
+  Future<dynamic> requestPostwithParams(Endpoint endpoint,bool isFav, {String fecha, double importe, int unidades, int id_usuario, int id_producto}) async {
+    try {
+      final uri = isFav ? _apiResource.endpointUriFavorito(endpoint, id_usuario: id_usuario, id_producto: id_producto) : _apiResource.endpointUriComprar(endpoint, fecha: fecha, importe: importe, unidades: unidades, id_usuario: id_usuario, id_producto: id_producto);
+
+      final options = Options()
+        ..headers = {'Authorization': 'Bearer $_token'};
+
+      var resp = await _httpAuthDio.post(uri.toString(), options: options);
 
       return resp.data;
 

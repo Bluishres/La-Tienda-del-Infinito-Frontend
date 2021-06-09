@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -15,7 +16,7 @@ class MockUsuarioRepository implements UserRepository {
 
   final apiService = locator<APIService>();
   /// Arreglar el postUser
-  @override
+/*  @override
   Future<Usuario> postUser({int id}) async {
     await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
@@ -27,7 +28,7 @@ class MockUsuarioRepository implements UserRepository {
     }).toList();
 
     return lista.firstWhere((post) => post.id == id);
-  }
+  }*/
 
   @override
   Future<List<Usuario>> getAllUser() async {
@@ -54,8 +55,30 @@ class MockUsuarioRepository implements UserRepository {
   }
 
   @override
-  Future<Usuario> getUser({int id}) async {
-    await Future.delayed(Duration(seconds: 2));
+  Future<Usuario> getUserByEmail({String email}) async {
+/*    await Future.delayed(Duration(seconds: 2));
+    try {
+      var data = await apiService.callGetMasterPrueba(Endpoint.user_getByEmail, id: email);
+      //Procesar
+      var lista = (data as List).map((item) {
+        try {
+          return Usuario.fromJson(item);
+        } catch (_) {
+          logger.e(_);
+          return Usuario();
+        }
+      }).toList();
+
+      var validItems = lista.where((item) => item.id != null).toList();
+
+      return validItems;
+    } on Exception catch (ex, s) {
+      throw ex;
+    }*/
+  }
+  @override
+  Future<Usuario> getUserByNick({String nick}) async {
+/*    await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/user.json');
 
     var list = jsonDecode(jsondata) as List;
@@ -64,7 +87,7 @@ class MockUsuarioRepository implements UserRepository {
       return Usuario.fromJson(item);
     }).toList();
 
-    return lista.firstWhere((post) => post.id == id);
+    return lista.firstWhere((post) => post.id == id);*/
   }
 
   @override
@@ -76,6 +99,12 @@ class MockUsuarioRepository implements UserRepository {
   @override
   Future<Usuario> putUsuario({Usuario userModel}) {
     // TODO: implement putUsuario
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Usuario> postUser({Usuario USER}) {
+    // TODO: implement postUser
     throw UnimplementedError();
   }
 }

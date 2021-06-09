@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.la_tienda_del_infinito">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
    <application
         android:label="la_tienda_del_infinito"
         android:icon="@mipmap/ic_launcher"

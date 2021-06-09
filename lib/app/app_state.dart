@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopend/app/data/provider/ConectivityProvider.dart';

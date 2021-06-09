@@ -1,4 +1,4 @@
-
+// @dart=2.9
 import 'dart:async';
 
 enum EventChannel { Notificacion, Autentication, JournalStart,JournalEnd,ChangeStateAdded, ChangeStateSended}

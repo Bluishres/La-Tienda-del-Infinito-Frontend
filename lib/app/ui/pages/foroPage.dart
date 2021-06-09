@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -184,7 +185,7 @@ class ForoScreenState extends State<ForoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
+        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover, width: 170.0, height: 230.0),
         centerTitle: true,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(

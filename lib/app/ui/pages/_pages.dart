@@ -1,3 +1,4 @@
+// @dart=2.9
 export './error/no_internet_page.dart';
 export './error/requet_error_page.dart';
 export './error/requet_timeout_error_page.dart';

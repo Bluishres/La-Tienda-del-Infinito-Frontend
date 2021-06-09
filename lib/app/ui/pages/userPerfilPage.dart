@@ -1,53 +1,70 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/GeneralDrawer.dart';
 import 'package:shopend/app/common/constants.dart';
+import 'package:shopend/app/domain/model/Usuario.dart';
+import 'package:shopend/app/ui/pages/productosComprados.dart';
+import 'package:shopend/app/ui/pages/productosFavoritos.dart';
 
 import '../../router.dart';
 import '_pages.dart';
 
 class UserPerfil extends StatefulWidget {
+  final Usuario _user;
+  UserPerfil(this._user);
+
   @override
   UserPerfilState createState() => UserPerfilState();
 }
 
-// Este build y el buildFotoPerfil hay que cambiarlos, solo están asi para ver
-// como queda visualmente
-Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      height: 60.0,
-      width: 60.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 2),
-            blurRadius: 6.0,
-          ),
-        ],
-        image: DecorationImage(
-          image: logo,
-        ),
-      ),
-    ),
-  );
-}
-
 class UserPerfilState extends State<UserPerfil> {
+  Usuario _user;
+  final nick = TextEditingController();
+  final password = TextEditingController();
+  final email = TextEditingController();
+  final nombre = TextEditingController();
+  final apellidos = TextEditingController();
+  final nacionalidad = TextEditingController();
+  final fechaNacimiento = TextEditingController();
+  final direccion = TextEditingController();
+  final fotoPerfil = TextEditingController();
+  bool _show = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _user = widget._user;
+    nick.text = _user.nick;
+    password.text = _user.password;
+    email.text = _user.email;
+    nombre.text = _user.nombre;
+    apellidos.text = _user.apellidos;
+    nacionalidad.text = _user.nacionalidad;
+    fechaNacimiento.text = _user.fechaNacimiento.toString();
+    direccion.text = _user.direccion;
+    fotoPerfil.text = _user.fotoPerfil;
+  }
+
+  void mostrarPass(){
+      setState(() {
+        _show = !_show;
+      });
+  }
+
+
   Widget _buildFotoPerfil() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 15.0),
+      padding: EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
+          Container(
+            width: 200,
+            height: 200,
+            child:
+              Image.network(
+                _user.fotoPerfil,)
           ),
         ],
       ),
@@ -66,7 +83,7 @@ class UserPerfilState extends State<UserPerfil> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextField(controller: nick,
             enabled: false,
             style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
             decoration: InputDecoration(
@@ -103,8 +120,9 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: password,
             enabled: false,
-            obscureText: true,
+            obscureText:_show ? false : true,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -121,6 +139,16 @@ class UserPerfilState extends State<UserPerfil> {
             ),
           ),
         ),
+        RaisedButton(
+                                color: Color.fromRGBO(240, 165, 165, 4.0),
+                                hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Icon(_show ? Icons.lock_outline : Icons.lock_open),
+                                onPressed: () {
+                                    mostrarPass();
+                                },
+                              ),
       ],
     );
   }
@@ -143,6 +171,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: email,
             enabled: false,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
@@ -183,6 +212,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: nombre,
             enabled: false,
             style: TextStyle(
               color: Colors.black,
@@ -222,6 +252,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: apellidos,
             enabled: false,
             style: TextStyle(
               color: Colors.black,
@@ -261,6 +292,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: nacionalidad,
             enabled: false,
             style: TextStyle(
               color: Colors.black,
@@ -300,6 +332,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: fechaNacimiento,
             enabled: false,
             keyboardType: TextInputType.datetime,
             style: TextStyle(
@@ -340,6 +373,7 @@ class UserPerfilState extends State<UserPerfil> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+          controller: direccion,
             enabled: false,
             style: TextStyle(
               color: Colors.black,
@@ -361,15 +395,65 @@ class UserPerfilState extends State<UserPerfil> {
     );
   }
 
+  Widget _buildBtnComprados() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        MaterialButton(
+          padding: EdgeInsets.all(20.0),
+          color: Color.fromRGBO(240, 165, 165, 4.0),
+          hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Text(
+            "Productos Comprados",
+            style: TextStyle(
+                fontFamily: "OpenSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ProdCompradosPage(user: _user)));
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBtnFavoritos() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        MaterialButton(
+          padding: EdgeInsets.all(20.0),
+          color: Color.fromRGBO(240, 165, 165, 4.0),
+          hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Text(
+            "Favoritos",
+            style: TextStyle(
+                fontFamily: "OpenSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ProdFavoritosPage(user: _user)));
+                    },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromRGBO(180, 226, 248, 4.0),
         appBar: AppBar(
-          title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover),
+          title: Image.asset('assets/images/Logo.png',
+              fit: BoxFit.cover, width: 170.0, height: 230.0),
           centerTitle: true,
         ),
-        drawer: MenuLateral(),
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
@@ -407,6 +491,7 @@ class UserPerfilState extends State<UserPerfil> {
                   height: 30.0,
                 ),
                 _buildFotoPerfil(),
+                SizedBox(height: 20.0),
                 _buildNick(),
                 _buildPassword(),
                 _buildEmail(),
@@ -415,33 +500,17 @@ class UserPerfilState extends State<UserPerfil> {
                 _buildNacionalidad(),
                 _buildFechaNacimiento(),
                 _buildDireccion(),
-                SizedBox(height: 20.0),
-                RaisedButton(
-                  padding: EdgeInsets.all(20.0),
-                  color: Color.fromRGBO(240, 165, 165, 4.0),
-                  hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  child: Text(
-                    "Volver",
-                    style: TextStyle(
-                        fontFamily: "OpenSans",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                SizedBox(height: 25.0),
+                _buildBtnComprados(),
+                SizedBox(height: 15.0),
+                _buildBtnFavoritos(),
+                SizedBox(height: 15.0),
               ],
             ),
           ),
         ));
   }
 }
-
-
-
-
 
 /*class Imagen extends StatelessWidget {
   @override

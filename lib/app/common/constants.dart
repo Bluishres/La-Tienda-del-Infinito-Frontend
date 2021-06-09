@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 
@@ -28,3 +29,5 @@ final kBoxDecorationStyle = BoxDecoration(
 class Constans {
   static final demoUser = Usuario.createDemo();
 }
+
+final KColor = Color.fromRGBO(194, 232, 248, 50.0);

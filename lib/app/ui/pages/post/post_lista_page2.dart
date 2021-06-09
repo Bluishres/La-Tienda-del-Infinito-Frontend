@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:shopend/app/app.dart';
 import 'package:shopend/app/data/repository/post/PostRepository.dart';
