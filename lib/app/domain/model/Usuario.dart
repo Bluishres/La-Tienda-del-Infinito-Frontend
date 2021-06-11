@@ -1,23 +1,21 @@
 // @dart=2.9
 import 'dart:convert';
+
 import 'package:shopend/app/domain/commands/_commands.dart';
 
-import '_models.dart';
-
 class Usuario extends CommandBase {
-  Usuario({
-    this.admin,
-    this.apellidos,
-    this.direccion,
-    this.email,
-    this.fechaNacimiento,
-    this.fotoPerfil,
-    this.id,
-    this.nacionalidad,
-    this.nick,
-    this.nombre,
-    this.password
-  });
+  Usuario(
+      {this.admin,
+      this.apellidos,
+      this.direccion,
+      this.email,
+      this.fechaNacimiento,
+      this.fotoPerfil,
+      this.id,
+      this.nacionalidad,
+      this.nick,
+      this.nombre,
+      this.password});
 
   final bool admin;
   final String apellidos;
@@ -63,18 +61,19 @@ class Usuario extends CommandBase {
   String toRawJson() => json.encode(toJson());
 
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-        admin: json["admin"],
-        apellidos: json["apellidos"],
-        direccion: json["direccion"],
-        email: json["email"],
-        fechaNacimiento: json["fecha_Nacimiento"] == "" ? DateTime.parse("0000-00-00") : DateTime.parse(json["fecha_Nacimiento"]),
-        fotoPerfil: json["foto_Perfil"],
-        id: json["id"],
-        nacionalidad: json["nacionalidad"],
-        nick: json["nick"],
-        nombre: json["nombre"],
-        password: json["password"]
-      );
+      admin: json["admin"],
+      apellidos: json["apellidos"],
+      direccion: json["direccion"],
+      email: json["email"],
+      fechaNacimiento: json["fecha_Nacimiento"] == ""
+          ? DateTime.parse("0000-00-00")
+          : DateTime.parse(json["fecha_Nacimiento"]),
+      fotoPerfil: json["foto_Perfil"],
+      id: json["id"],
+      nacionalidad: json["nacionalidad"],
+      nick: json["nick"],
+      nombre: json["nombre"],
+      password: json["password"]);
 
   @override
   Map<String, dynamic> toJson() => {
@@ -82,7 +81,8 @@ class Usuario extends CommandBase {
         "apellidos": apellidos == null ? "" : apellidos,
         "direccion": direccion == null ? "" : direccion,
         "email": email,
-        "fecha_Nacimiento": fechaNacimiento == null ? "" : fechaNacimiento.toString(),
+        "fecha_Nacimiento":
+            fechaNacimiento == null ? "" : fechaNacimiento.toString(),
         "foto_Perfil": fotoPerfil == null ? "" : fotoPerfil,
         "id": id == null ? 0 : id,
         "nacionalidad": nacionalidad == null ? "" : nacionalidad,

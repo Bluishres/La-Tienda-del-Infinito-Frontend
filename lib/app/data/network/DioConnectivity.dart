@@ -19,9 +19,7 @@ class ManageDioErrorInterceptor extends Interceptor {
 
   @override
   Future onError(DioError err) async {
-
-    if (_appState==null)
-      _appState = locator<AppState>();
+    if (_appState == null) _appState = locator<AppState>();
 
     if (_shouldRetry(err)) {
       if (!_appState.HasInternetConnection) {
@@ -30,20 +28,20 @@ class ManageDioErrorInterceptor extends Interceptor {
           //hay internet de nuevo
           try {
             return await executeRequest(err.request);
-          } catch (ex,s) {
+          } catch (ex, s) {
             //Crashlytics.instance.recordError(ex, s);
             return ex;
           }
         }
-      } else if (err.type==DioErrorType.CONNECT_TIMEOUT) {
+      } else if (err.type == DioErrorType.CONNECT_TIMEOUT) {
         //Hay conextion a internet
-        int resp = await Navigation.pageError("/error/rqt-timeout",null);
-        if (resp==-1){
+        int resp = await Navigation.pageError("/error/rqt-timeout", null);
+        if (resp == -1) {
           //reintento
           //hay internet de nuevo
           try {
             return await executeRequest(err.request);
-          } catch (ex,s) {
+          } catch (ex, s) {
             //Crashlytics.instance.recordError(ex, s);
             return ex;
           }
@@ -56,13 +54,11 @@ class ManageDioErrorInterceptor extends Interceptor {
   }
 
   bool _shouldRetry(DioError err) {
-
-    if (err.type == DioErrorType.DEFAULT || err.type==DioErrorType.CONNECT_TIMEOUT)
-      return true;
+    if (err.type == DioErrorType.DEFAULT ||
+        err.type == DioErrorType.CONNECT_TIMEOUT) return true;
 
     if (err.error != null) {
-      if (err.error is SocketException)
-        return true;
+      if (err.error is SocketException) return true;
     }
 
     return false;
@@ -95,7 +91,7 @@ class DioConnectivityRequestRetrier {
     final responseCompleter = Completer<Response>();
 
     streamSubscription = connectivity.onConnectivityChanged.listen(
-          (connectivityResult) async {
+      (connectivityResult) async {
         if (connectivityResult != ConnectivityResult.none) {
           streamSubscription.cancel();
           // Complete the completer instead of returning
@@ -137,21 +133,15 @@ class DioErrorRequestRetrier {
 }
 
 class DioPrettyErrors {
-
-  static String parseError(DioError err){
-
-    if (err.type==DioErrorType.CONNECT_TIMEOUT) {
+  static String parseError(DioError err) {
+    if (err.type == DioErrorType.CONNECT_TIMEOUT) {
       return "Tiempo de espera superado";
     }
 
-    if (err!=null && err.response!=null) {
+    if (err != null && err.response != null) {
       return '${err.response.statusCode} - ${err.response.statusMessage}\n${err.response}';
     }
 
     return "Algo fue mal";
-
   }
-
 }
-
-

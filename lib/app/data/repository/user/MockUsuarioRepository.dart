@@ -1,20 +1,16 @@
 // @dart=2.9
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:shopend/app/common/logger.dart';
 import 'package:shopend/app/data/provider/api.dart';
 import 'package:shopend/app/data/provider/api_service.dart';
 import 'package:shopend/app/domain/model/Usuario.dart';
-import 'package:shopend/app/domain/model/post_model.dart';
 
 import '../../../locator.dart';
 import 'UserRepository.dart';
 
 class MockUsuarioRepository implements UserRepository {
-
   final apiService = locator<APIService>();
+
   /// Arreglar el postUser
 /*  @override
   Future<Usuario> postUser({int id}) async {
@@ -76,6 +72,7 @@ class MockUsuarioRepository implements UserRepository {
       throw ex;
     }*/
   }
+
   @override
   Future<Usuario> getUserByNick({String nick}) async {
 /*    await Future.delayed(Duration(seconds: 2));

@@ -4,16 +4,16 @@ import 'package:shopend/app/app_state.dart';
 import 'package:shopend/app/data/security/OAuth.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
+
 import 'AuthRepository.dart';
 
 class MockAuthRepository extends AuthRepository {
-
-  static const String userOk="201";
-  static const String passOk="1234";
+  static const String userOk = "201";
+  static const String passOk = "1234";
 
   final _appState = locator<AppState>();
 
-  String _token="";
+  String _token = "";
 
   String get token => _token;
 
@@ -26,11 +26,12 @@ class MockAuthRepository extends AuthRepository {
     username = username.replaceAll(RegExp('\t'), '');
     password = password.replaceAll(RegExp('\t'), '');
 
-    if (username==userOk && password==passOk) {
-      _token='token';
-      _appState.AssignLoggedUser(Usuario.createDemo()); //Asignar al estado el usuario recien logado.
+    if (username == userOk && password == passOk) {
+      _token = 'token';
+      _appState.AssignLoggedUser(
+          Usuario.createDemo()); //Asignar al estado el usuario recien logado.
     } else {
-      _token ="";
+      _token = "";
     }
     return _token;
   }
@@ -39,7 +40,7 @@ class MockAuthRepository extends AuthRepository {
     /// delete from keystore/keychain
     await Future.delayed(Duration(seconds: 1));
     _appState.ResetUser();
-    _token="";
+    _token = "";
     return;
   }
 
@@ -52,13 +53,12 @@ class MockAuthRepository extends AuthRepository {
   Future<bool> hasToken() async {
     /// read from keystore/keychain
     await Future.delayed(Duration(seconds: 1));
-    if (_appState!=null && _appState.user!=null)
-      return true;
+    if (_appState != null && _appState.user != null) return true;
 
     return _token.isNotEmpty;
   }
 
-  String getToken(){
+  String getToken() {
     return _token;
   }
 

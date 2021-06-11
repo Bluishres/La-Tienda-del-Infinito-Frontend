@@ -15,7 +15,7 @@ var logger = Logger(
       // Print an emoji for each log message
       printTime: false // Should each log print contain a timestamp,
 
-  )),
+      )),
   output: null, // Use the default LogOutput (-> send everything to console)
   filter: null, // Use the default LogFilter (-> only log in debug mode)
 );

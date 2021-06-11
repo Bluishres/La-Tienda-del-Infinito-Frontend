@@ -12,12 +12,9 @@ class ForoScreenState extends State<ForoScreen> {
 
   Widget _buildContenedorHilos() {
     return Container(
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(255, 240, 240, 150.0)
-      ),
+      decoration: BoxDecoration(color: Color.fromRGBO(255, 240, 240, 150.0)),
       margin: const EdgeInsets.all(20.0),
       child: Table(
-
         border: TableBorder.all(),
         columnWidths: {
           0: FlexColumnWidth(3),
@@ -185,7 +182,8 @@ class ForoScreenState extends State<ForoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('assets/images/Logo.png', fit: BoxFit.cover, width: 170.0, height: 230.0),
+        title: Image.asset('assets/images/Logo.png',
+            fit: BoxFit.cover, width: 170.0, height: 230.0),
         centerTitle: true,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(

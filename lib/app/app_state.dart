@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopend/app/data/provider/ConectivityProvider.dart';
 
@@ -43,7 +44,8 @@ class AppState {
     } catch (ex) {
       logger.e(ex);
     }
-    logger.i("AppState. User-logged ${st._user != null ? st._user.toString() : 'no-saved. return null'}");
+    logger.i(
+        "AppState. User-logged ${st._user != null ? st._user.toString() : 'no-saved. return null'}");
 
     logger.v("AppState.loadBasic ----- end");
 
@@ -71,7 +73,8 @@ class AppState {
   }
 
   //PROPERTYS-GET SIMPLES
-  bool get HasInternetConnection => !(_connectivityStatus == ConnectivityStatus.Offline);
+  bool get HasInternetConnection =>
+      !(_connectivityStatus == ConnectivityStatus.Offline);
 
   ConnectivityStatus get ConnectivityState => _connectivityStatus;
 
@@ -79,6 +82,7 @@ class AppState {
   Usuario get user => _user;
 
   bool get hasUser => _user != null;
+
   bool get isAppInitialized => _initializedApp;
 
   void AssignLoggedUser(Usuario user) {
@@ -117,7 +121,8 @@ class AppState {
     }
   }
 
-  static List<dynamic> loadObjectList(String objectKey, {List<dynamic> defaultList = null}) {
+  static List<dynamic> loadObjectList(String objectKey,
+      {List<dynamic> defaultList = null}) {
     var sp = locator<SharedPreferences>();
 
     try {
@@ -161,7 +166,8 @@ class AppState {
     var sp = locator<SharedPreferences>();
 
     try {
-      List<String> serialized = objectList.map((obj) => jsonEncode(obj)).toList();
+      List<String> serialized =
+          objectList.map((obj) => jsonEncode(obj)).toList();
       sp.setStringList(generateKey(objectKey), serialized);
     } catch (ex) {
       logger.e("Error AppState.saveObject. key=$objectKey", ex);

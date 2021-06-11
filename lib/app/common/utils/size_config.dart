@@ -17,7 +17,8 @@ class SizeConfig {
 }
 
 // Get the proportionate height as per screen size
-double getProportionateScreenHeight(double inputHeight, {BuildContext context}) {
+double getProportionateScreenHeight(double inputHeight,
+    {BuildContext context}) {
   double screenHeight = SizeConfig.screenHeight;
   // 812 is the layout height that designer use
   return (inputHeight / 812.0) * MediaQuery.of(context).size.height;

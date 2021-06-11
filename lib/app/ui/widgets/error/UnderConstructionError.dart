@@ -1,12 +1,10 @@
 // @dart=2.9
-import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class UnderConstructionErrorWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,15 +22,14 @@ class UnderConstructionErrorWidget extends StatelessWidget {
               width: size.width * 0.70,
             ),
           ),
-
           Positioned(
             left: size.width * 0.20,
             top: size.height * 0.65,
             right: size.width * 0.05,
             child: Text("Estamos trabajando en ello\nDisculpe las molestias",
-                style: context.textTheme.subtitle1.merge(TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w700))),
+                style: context.textTheme.subtitle1.merge(TextStyle(
+                    color: Colors.blueGrey, fontWeight: FontWeight.w700))),
           ),
-
         ],
       ),
     );

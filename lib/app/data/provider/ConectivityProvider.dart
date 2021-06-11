@@ -1,9 +1,12 @@
 // @dart=2.9
 import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:shopend/app/common/utils/StreamUtils.dart';
 
-const kOfflineDebounceDuration = Duration(seconds: 3); //Tiempo que tarda en enviar el evento, permite controlar pequeños cortes en la conexion
+const kOfflineDebounceDuration = Duration(
+    seconds:
+        3); //Tiempo que tarda en enviar el evento, permite controlar pequeños cortes en la conexion
 
 enum ConnectivityStatus { WiFi, Cellular, Offline }
 
@@ -11,20 +14,21 @@ class ConnectivityService {
   final connectivityService = Connectivity();
 
   // Create our public controller
-  StreamController<ConnectivityStatus> _connectionStatusController = StreamController<ConnectivityStatus>.broadcast();
+  StreamController<ConnectivityStatus> _connectionStatusController =
+      StreamController<ConnectivityStatus>.broadcast();
   ConnectivityStatus _lastState = null;
 
   ConnectivityService() {
-
     Stream.fromFuture(connectivityService.checkConnectivity())
-        .asyncExpand((data) => connectivityService.onConnectivityChanged.transform(startsWith(data)))
+        .asyncExpand((data) => connectivityService.onConnectivityChanged
+            .transform(startsWith(data)))
         .transform(debounce(kOfflineDebounceDuration))
         .listen((ConnectivityResult result) {
-          var state =_getStatusFromResult(result);
-          if (_lastState==null || state!=_lastState) {
-            _lastState = state;
-            _connectionStatusController.add(state);
-          }
+      var state = _getStatusFromResult(result);
+      if (_lastState == null || state != _lastState) {
+        _lastState = state;
+        _connectionStatusController.add(state);
+      }
     });
   }
 

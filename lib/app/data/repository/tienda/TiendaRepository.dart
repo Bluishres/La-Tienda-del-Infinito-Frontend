@@ -1,9 +1,14 @@
 // @dart=2.9
 import 'package:shopend/app/domain/model/_models.dart';
 
-abstract class TiendaRepository{
+abstract class TiendaRepository {
   /// Comprar
-  Future<Ticket> Comprar({String fecha, double importe, int unidades, int id_usuario, int id_producto });
+  Future<Ticket> Comprar(
+      {String fecha,
+      double importe,
+      int unidades,
+      int id_usuario,
+      int id_producto});
 
   /// Consultar tickets
   Future<List<Ticket>> getAllTickets();

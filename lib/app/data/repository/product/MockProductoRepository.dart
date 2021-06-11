@@ -1,9 +1,5 @@
 // @dart=2.9
-import 'dart:convert';
 
-import 'package:flutter/services.dart';
-import 'package:shopend/app/common/logger.dart';
-import 'package:shopend/app/data/provider/api.dart';
 import 'package:shopend/app/data/provider/api_service.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 
@@ -11,7 +7,6 @@ import '../../../locator.dart';
 import 'ProductRepository.dart';
 
 class MockProductoRepository implements ProductRepository {
-
   final apiService = locator<APIService>();
 
   @override
@@ -43,5 +38,4 @@ class MockProductoRepository implements ProductRepository {
     // TODO: implement putProduct
     throw UnimplementedError();
   }
-
 }

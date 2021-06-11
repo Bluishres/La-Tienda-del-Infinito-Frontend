@@ -1,7 +1,5 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:shopend/app/app.dart';
-import 'package:shopend/app/data/repository/post/PostRepository.dart';
 import 'package:shopend/app/data/repository/user/UserRepository.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
@@ -63,21 +61,24 @@ Widget _createListView(BuildContext context, List<Usuario> users) {
           thickness: 1,
         ),
         new ListTile(
-          onTap: () => Navigation.page("/posts/detalle", context, params: [users[i]]),
+          onTap: () =>
+              Navigation.page("/posts/detalle", context, params: [users[i]]),
           leading: Icon(Icons.post_add),
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 users[i].id.toString(),
-                style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+                style: new TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF404040)),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     '${users[i].nombre.toString()} ${users[i].apellidos.toString()}',
-                    style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF404040)),
                   ),
                 ),
               )
@@ -85,7 +86,8 @@ Widget _createListView(BuildContext context, List<Usuario> users) {
           ),
           subtitle: Text(
             users[i].email,
-            style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+            style: new TextStyle(
+                fontWeight: FontWeight.bold, color: Color(0xFF404040)),
           ),
         ),
       ],

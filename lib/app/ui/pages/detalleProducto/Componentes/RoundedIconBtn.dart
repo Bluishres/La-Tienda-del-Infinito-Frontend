@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 
-
 class RoundedIconBtn extends StatelessWidget {
   const RoundedIconBtn({
     Key key,

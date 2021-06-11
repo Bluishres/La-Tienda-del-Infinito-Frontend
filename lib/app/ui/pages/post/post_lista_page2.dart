@@ -1,6 +1,5 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:shopend/app/app.dart';
 import 'package:shopend/app/data/repository/post/PostRepository.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
@@ -62,21 +61,24 @@ Widget _createListView(BuildContext context, List<PostModel> posts) {
           thickness: 1,
         ),
         new ListTile(
-          onTap: () => Navigation.page("/posts/detalle", context, params: [posts[i]]),
+          onTap: () =>
+              Navigation.page("/posts/detalle", context, params: [posts[i]]),
           leading: Icon(Icons.post_add),
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 posts[i].id.toString(),
-                style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+                style: new TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF404040)),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     '${posts[i].userId.toString()}',
-                    style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF404040)),
                   ),
                 ),
               )
@@ -84,7 +86,8 @@ Widget _createListView(BuildContext context, List<PostModel> posts) {
           ),
           subtitle: Text(
             posts[i].title,
-            style: new TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF404040)),
+            style: new TextStyle(
+                fontWeight: FontWeight.bold, color: Color(0xFF404040)),
           ),
         ),
       ],

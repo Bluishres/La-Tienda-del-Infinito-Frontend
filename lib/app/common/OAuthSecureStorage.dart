@@ -2,7 +2,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shopend/app/data/security/OAuth.dart';
 
-
 class OAuthSecureStorage extends OAuthStorage {
   final FlutterSecureStorage storage = new FlutterSecureStorage();
   final accessTokenKey = 'accessToken';
@@ -12,8 +11,7 @@ class OAuthSecureStorage extends OAuthStorage {
   Future<OAuthToken> fetch() async {
     return OAuthToken(
         accessToken: await storage.read(key: accessTokenKey),
-        refreshToken: await storage.read(key: refreshTokenKey)
-    );
+        refreshToken: await storage.read(key: refreshTokenKey));
   }
 
   @override

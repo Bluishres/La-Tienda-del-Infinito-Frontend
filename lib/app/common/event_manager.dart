@@ -1,10 +1,16 @@
 // @dart=2.9
 import 'dart:async';
 
-enum EventChannel { Notificacion, Autentication, JournalStart,JournalEnd,ChangeStateAdded, ChangeStateSended}
+enum EventChannel {
+  Notificacion,
+  Autentication,
+  JournalStart,
+  JournalEnd,
+  ChangeStateAdded,
+  ChangeStateSended
+}
 
 class EventManager {
-
   final Map<EventChannel, StreamController> _mapChannelControllers;
 
   EventManager._(this._mapChannelControllers);
@@ -15,7 +21,8 @@ class EventManager {
 
   void sendEvent(EventChannel channel, AppEvent event) {
     if (!_mapChannelControllers.containsKey(channel)) {
-      _mapChannelControllers.putIfAbsent(channel, () => new StreamController<AppEvent>.broadcast());
+      _mapChannelControllers.putIfAbsent(
+          channel, () => new StreamController<AppEvent>.broadcast());
     }
 
     _mapChannelControllers[channel].add(event);
@@ -23,7 +30,8 @@ class EventManager {
 
   Stream<AppEvent> subscribeToChannel(EventChannel channel) {
     if (!_mapChannelControllers.containsKey(channel)) {
-      _mapChannelControllers.putIfAbsent(channel, () => new StreamController<AppEvent>.broadcast());
+      _mapChannelControllers.putIfAbsent(
+          channel, () => new StreamController<AppEvent>.broadcast());
     }
     return _mapChannelControllers[channel].stream;
   }
@@ -34,19 +42,20 @@ class EventManager {
       _mapChannelControllers.remove(channel);
     }
   }
-
 }
 
-abstract class AppEvent {
-
-}
+abstract class AppEvent {}
 
 class PushNotificationReceivedEvent extends AppEvent {}
+
 class PushNotificationRefreshEvent extends AppEvent {}
+
 class PushNotificationReadedEvent extends AppEvent {}
 
 class AuthLoggedEvent extends AppEvent {}
+
 class AuthLogoutEvent extends AppEvent {}
 
 class JournalStartEvent extends AppEvent {}
+
 class JournalEndEvent extends AppEvent {}

@@ -13,56 +13,60 @@ import 'data/repository/user/ProdUsuarioRepository.dart';
 final locator = GetIt.instance;
 
 @injectableInit
-void setupLocator(Env env,AppConfig config) async {
-
+void setupLocator(Env env, AppConfig config) async {
   //Configuracion es la misma para cualquier flavor
   locator.registerSingleton<AppConfig>(config);
 
   locator.registerLazySingleton<EventManager>(() => EventManager.create());
-  locator.registerLazySingleton<ConnectivityService>(() => ConnectivityService());
+  locator
+      .registerLazySingleton<ConnectivityService>(() => ConnectivityService());
 
   if (env is MockEnv) {
     locator.registerLazySingleton<AuthRepository>(() => MockAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => MockPostRepository());
-    locator.registerLazySingleton<UserRepository>(() => MockUsuarioRepository());
-    locator.registerLazySingleton<ProductRepository>(() => MockProductoRepository());
-
+    locator
+        .registerLazySingleton<UserRepository>(() => MockUsuarioRepository());
+    locator.registerLazySingleton<ProductRepository>(
+        () => MockProductoRepository());
   } else if (env is DevEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
-    locator.registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
-    locator.registerLazySingleton<ProductRepository>(() => ProdProductoRepository());
-    locator.registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
+    locator
+        .registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
+    locator.registerLazySingleton<ProductRepository>(
+        () => ProdProductoRepository());
+    locator
+        .registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
 
+    locator.registerLazySingleton<HiloRepository>(() => ProdHiloRepository());
   } else if (env is ProdEnv) {
     locator.registerLazySingleton<AuthRepository>(() => ServerAuthRepository());
     locator.registerLazySingleton<PostRepository>(() => ProdPostRepository());
-    locator.registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
-    locator.registerLazySingleton<ProductRepository>(() => ProdProductoRepository());
-    locator.registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
+    locator
+        .registerLazySingleton<UserRepository>(() => ProdUsuarioRepository());
+    locator.registerLazySingleton<ProductRepository>(
+        () => ProdProductoRepository());
+    locator
+        .registerLazySingleton<TiendaRepository>(() => ProdTiendaRepository());
+    locator.registerLazySingleton<HiloRepository>(() => ProdHiloRepository());
   }
 }
 
 abstract class Env {
-
-  Env(){}
+  Env() {}
 
   factory Env.fromFlavour(String flavour) {
-    if (flavour.toUpperCase()=="PROD")
-      return ProdEnv();
+    if (flavour.toUpperCase() == "PROD") return ProdEnv();
 
-    if (flavour.toUpperCase()=="DEV")
-      return DevEnv();
+    if (flavour.toUpperCase() == "DEV") return DevEnv();
 
-    if (flavour.toUpperCase()=="MOCK")
-      return MockEnv();
+    if (flavour.toUpperCase() == "MOCK") return MockEnv();
 
     throw new Exception("Flavour not recognized");
   }
 }
 
-class DevEnv extends Env {
-}
+class DevEnv extends Env {}
 
 class MockEnv extends Env {}
 

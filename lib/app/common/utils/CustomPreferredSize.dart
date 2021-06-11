@@ -5,11 +5,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 
-
-
-class CustomPreferredSize extends StatelessWidget implements PreferredSizeWidget {
+class CustomPreferredSize extends StatelessWidget
+    implements PreferredSizeWidget {
   /// Creates a widget that has a preferred size that the parent can query.
-   CustomPreferredSize({
+  CustomPreferredSize({
     Key key,
     this.child,
     this.preferredSize,
@@ -25,5 +24,4 @@ class CustomPreferredSize extends StatelessWidget implements PreferredSizeWidget
 
   @override
   Widget build(BuildContext context) => child;
-
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 
 class PostDetail extends StatefulWidget {
-
   final PostModel model;
 
   const PostDetail({Key key, this.model}) : super(key: key);

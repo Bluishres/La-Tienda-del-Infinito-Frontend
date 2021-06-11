@@ -6,10 +6,8 @@ import 'package:shopend/app/data/repository/post/PostRepository.dart';
 import 'package:shopend/app/domain/model/post_model.dart';
 
 class MockPostRepository implements PostRepository {
-
   @override
   Future<List<PostModel>> getAll() async {
-
     await Future.delayed(Duration(seconds: 2));
     final jsondata = await rootBundle.loadString('assets/mock_data/posts.json');
 
@@ -39,7 +37,6 @@ class MockPostRepository implements PostRepository {
       return PostModel.fromJson(item);
     }).toList();
 
-    return lista.firstWhere((post) => post.id==id);
+    return lista.firstWhere((post) => post.id == id);
   }
-
 }

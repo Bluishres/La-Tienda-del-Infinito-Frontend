@@ -1,19 +1,14 @@
 // @dart=2.9
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:shopend/app/common/logger.dart';
 import 'package:shopend/app/data/provider/api.dart';
 import 'package:shopend/app/data/provider/api_service.dart';
 import 'package:shopend/app/domain/model/Producto.dart';
-import 'package:shopend/app/domain/model/Usuario.dart';
-import 'package:shopend/app/domain/model/post_model.dart';
+
 import '../../../locator.dart';
 import '../_repositorys.dart';
 
 class ProdProductoRepository implements ProductRepository {
-
   final apiService = locator<APIService>();
 
   @override
@@ -41,7 +36,7 @@ class ProdProductoRepository implements ProductRepository {
   }
 
   @override
-  Future<Producto> postProduct({Producto producto}) async{
+  Future<Producto> postProduct({Producto producto}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
       var data = await apiService.requestPost(Endpoint.product_post, producto);
@@ -65,10 +60,11 @@ class ProdProductoRepository implements ProductRepository {
   }
 
   @override
-  Future<void> deleteProduct({int id}) async{
+  Future<void> deleteProduct({int id}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      var data = await apiService.requestDelete(Endpoint.product_delete, id: id.toString());
+      var data = await apiService.requestDelete(Endpoint.product_delete,
+          id: id.toString());
       bool b = data.toString().toLowerCase() == 'true';
       return b;
     } on Exception catch (ex, s) {

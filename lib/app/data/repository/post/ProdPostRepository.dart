@@ -1,5 +1,4 @@
 // @dart=2.9
-import 'dart:convert';
 
 import 'package:shopend/app/app_state.dart';
 import 'package:shopend/app/common/logger.dart';
@@ -10,7 +9,6 @@ import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
 
 class ProdPostRepository implements PostRepository {
-
   final apiService = locator<APIService>();
   final appState = locator<AppState>();
   final maxIntervalRefreshData = Duration(seconds: 10);
@@ -48,7 +46,8 @@ class ProdPostRepository implements PostRepository {
   @override
   Future<PostModel> get({int id}) async {
     try {
-      var data = await apiService.callGetMasterPrueba(Endpoint.posts, id: id.toString());
+      var data = await apiService.callGetMasterPrueba(Endpoint.posts,
+          id: id.toString());
 
       //Procesar
       try {
@@ -61,6 +60,4 @@ class ProdPostRepository implements PostRepository {
       throw ex;
     }
   }
-
-
 }

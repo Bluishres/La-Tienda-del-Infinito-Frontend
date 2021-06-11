@@ -1,30 +1,32 @@
 // @dart=2.9
 import 'dart:convert';
+
+import 'package:shopend/app/domain/commands/_commands.dart';
+
 import '_models.dart';
 
-class Hilo {
-  Hilo({
+class Hilo extends CommandBase{
+  Hilo({this.creador,
     this.fechaCreacion,
     this.id,
-    this.listaMensajes,
     this.titulo,
   });
 
   final DateTime fechaCreacion;
   final int id;
-  final List<Mensaje> listaMensajes;
   final String titulo;
+  final Usuario creador;
 
   Hilo copyWith({
     DateTime fechaCreacion,
     int id,
-    List<Mensaje> listaMensajes,
     String titulo,
+    String creador
   }) =>
       Hilo(
+        creador: creador ?? this.creador,
         fechaCreacion: fechaCreacion ?? this.fechaCreacion,
         id: id ?? this.id,
-        listaMensajes: listaMensajes ?? this.listaMensajes,
         titulo: titulo ?? this.titulo,
       );
 
@@ -33,16 +35,18 @@ class Hilo {
   String toRawJson() => json.encode(toJson());
 
   factory Hilo.fromJson(Map<String, dynamic> json) => Hilo(
-    fechaCreacion: DateTime.parse(json["fecha_creacion"]),
-    id: json["id"],
-    listaMensajes: List<Mensaje>.from(json["lista_mensajes"].map((x) => Mensaje.fromJson(x))),
-    titulo: json["titulo"],
-  );
+        fechaCreacion: json["fecha_creacion"] == ""
+            ? DateTime.parse("0000-00-00")
+            : DateTime.parse(json["fecha_creacion"]),
+        id: json["id"],
+        titulo: json["titulo"],
+        creador: Usuario.fromJson(json["creador"])
+      );
 
   Map<String, dynamic> toJson() => {
-    "fecha_creacion": fechaCreacion.toIso8601String(),
-    "id": id,
-    "lista_mensajes": List<dynamic>.from(listaMensajes.map((x) => x.toJson())),
-    "titulo": titulo,
-  };
+        "fecha_creacion": fechaCreacion == null ? "" : fechaCreacion.toString(),
+        "id": id,
+        "titulo": titulo,
+        "creador": creador.toJson()
+      };
 }

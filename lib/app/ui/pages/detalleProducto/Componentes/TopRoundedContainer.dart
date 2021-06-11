@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 
-
 class TopRoundedContainer extends StatelessWidget {
   const TopRoundedContainer({
     Key key,
@@ -16,8 +15,10 @@ class TopRoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: getProportionateScreenWidth(20, context:context)),
-      padding: EdgeInsets.only(top: getProportionateScreenWidth(20, context:context)),
+      margin: EdgeInsets.only(
+          top: getProportionateScreenWidth(20, context: context)),
+      padding: EdgeInsets.only(
+          top: getProportionateScreenWidth(20, context: context)),
       width: double.infinity,
       decoration: BoxDecoration(
         color: color,

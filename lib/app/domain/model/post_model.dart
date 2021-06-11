@@ -4,7 +4,6 @@
 //     final postModel = postModelFromJson(jsonString);
 
 import 'dart:convert';
-import '_models.dart';
 
 class PostModel {
   PostModel({
@@ -32,21 +31,22 @@ class PostModel {
         body: body ?? this.body,
       );
 
-  factory PostModel.fromRawJson(String str) => PostModel.fromJson(json.decode(str));
+  factory PostModel.fromRawJson(String str) =>
+      PostModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    userId: json["userId"],
-    id: json["id"],
-    title: json["title"],
-    body: json["body"],
-  );
+        userId: json["userId"],
+        id: json["id"],
+        title: json["title"],
+        body: json["body"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
-    "id": id,
-    "title": title,
-    "body": body,
-  };
+        "userId": userId,
+        "id": id,
+        "title": title,
+        "body": body,
+      };
 }

@@ -26,14 +26,19 @@ class AppConfig {
 
     final json = jsonDecode(contents);
 
-    String baseUrlAuth = json['baseUrlAuth'] ?? "" ;
+    String baseUrlAuth = json['baseUrlAuth'] ?? "";
     String baseUrlResource = json['baseUrlResource'] ?? "";
     int timeout = json['timeout'] ?? 10000;
     String appTitle = json['appTitle'] ?? "";
 
     if (appTitle.trim().isEmpty) appTitle = "Tienda del infinito";
 
-    return AppConfig._(flavor: env, baseUrlAuth: baseUrlAuth, baseUrlResource: baseUrlResource, timeout: timeout, appTitle: appTitle);
+    return AppConfig._(
+        flavor: env,
+        baseUrlAuth: baseUrlAuth,
+        baseUrlResource: baseUrlResource,
+        timeout: timeout,
+        appTitle: appTitle);
   }
 }
 

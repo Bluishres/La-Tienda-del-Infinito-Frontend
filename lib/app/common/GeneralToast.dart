@@ -6,6 +6,5 @@ void SuccessToast(String message) {
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 1
-  );
+      timeInSecForIos: 1);
 }

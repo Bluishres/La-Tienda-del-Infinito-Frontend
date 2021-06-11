@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 
-
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key key,
@@ -18,6 +17,7 @@ class ProductImages extends StatefulWidget {
 
 class _ProductImagesState extends State<ProductImages> {
   int selectedImage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +36,7 @@ class _ProductImagesState extends State<ProductImages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-                buildSmallProductPreview(),
+            buildSmallProductPreview(),
           ],
         )
       ],
@@ -45,8 +45,7 @@ class _ProductImagesState extends State<ProductImages> {
 
   GestureDetector buildSmallProductPreview() {
     return GestureDetector(
-      onTap: () {
-      },
+      onTap: () {},
       child: AnimatedContainer(
         duration: const Duration(seconds: 2),
         margin: EdgeInsets.only(right: 15),
@@ -56,8 +55,7 @@ class _ProductImagesState extends State<ProductImages> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              color: Colors.white),
+          border: Border.all(color: Colors.white),
         ),
         child: Image.network(widget.product.imagen),
       ),

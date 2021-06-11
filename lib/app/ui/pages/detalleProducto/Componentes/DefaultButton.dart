@@ -5,6 +5,7 @@ import 'package:shopend/app/common/utils/size_config.dart';
 class DefaultButton extends StatefulWidget {
   String text;
   Function press;
+
   DefaultButton({
     Key key,
     this.text,

@@ -9,7 +9,6 @@ class NoInternetPage extends StatefulWidget {
 }
 
 class _NoInternetPageState extends State<NoInternetPage> {
-
   @override
   void initState() {
     super.initState();
@@ -22,10 +21,9 @@ class _NoInternetPageState extends State<NoInternetPage> {
   }
 
   @override
-  dispose(){
+  dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {

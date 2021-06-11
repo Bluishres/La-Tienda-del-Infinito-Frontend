@@ -15,6 +15,9 @@ enum Endpoint {
   product_post,
   product_put,
   product_delete,
+  hilo,
+  hilo_getbyid,
+  mensaje,
   comprar,
   addFavorito
 }
@@ -23,6 +26,7 @@ class API {
   API({@required this.hostUrl}) {
     _uriBase = Uri.parse(hostUrl);
   }
+
   final String hostUrl;
   Uri _uriBase;
 
@@ -110,14 +114,42 @@ class API {
         path: path,
         queryParameters: _queryParameters);
   }
-
-  Uri endpointUriId(Endpoint endpoint,
-      {int id}) {
+  Uri endpointUriHiloMensaje(Endpoint endpoint, bool isMensaje,
+      {String fecha, int id_Creador, String titulo, int id_Hilo}) {
     String path = '${_uriBase.path}${_paths[endpoint]}';
+    Map<String, String> _queryParameters;
+    if(!isMensaje){
+    _queryParameters = <String, String>{
+      'Fecha': fecha,
+      'Id_Creador': id_Creador.toString(),
+      'Titulo': titulo,
+    };}else{
+      _queryParameters = <String, String>{
+        'Fecha': fecha,
+        'Id_Creador': id_Creador.toString(),
+        'Id_Hilo': id_Hilo.toString(),
+      };
+    }
 
-    final Map<String, String> _queryParameters = <String, String>{
-      'Id_Usuario': id.toString(),
-    };
+    return Uri(
+        scheme: _uriBase.scheme,
+        host: _uriBase.host,
+        port: _uriBase.port,
+        path: path,
+        queryParameters: _queryParameters);
+  }
+
+  Uri endpointUriId(Endpoint endpoint,bool isMensaje, {int id}) {
+    String path = '${_uriBase.path}${_paths[endpoint]}';
+    Map<String, String> _queryParameters;
+    if(isMensaje){
+    _queryParameters = <String, String>{
+      'Id_Hilo': id.toString(),
+    };}else{
+      _queryParameters = <String, String>{
+        'Id_Usuario': id.toString(),
+      };
+    }
 
     return Uri(
         scheme: _uriBase.scheme,
@@ -158,6 +190,10 @@ class API {
     Endpoint.product_put: 'latiendadelinfinito/product/update',
     Endpoint.product_delete: 'latiendadelinfinito/product/delete',
     Endpoint.comprar: 'latiendadelinfinito/shop/buy',
-    Endpoint.addFavorito: 'latiendadelinfinito/shop/fav'
+    Endpoint.addFavorito: 'latiendadelinfinito/shop/fav',
+    Endpoint.hilo: 'latiendadelinfinito/foro/hilo',
+    Endpoint.hilo_getbyid: 'latiendadelinfinito/foro/hilo/get',
+    Endpoint.mensaje: 'latiendadelinfinito/foro/hilo/mensajes',
+
   };
 }

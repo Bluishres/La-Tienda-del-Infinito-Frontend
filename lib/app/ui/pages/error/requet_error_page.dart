@@ -6,14 +6,13 @@ import 'package:shopend/app/ui/widgets/_widgets.dart';
 class RequetErrorPage extends StatefulWidget {
   final String msg;
 
-  const RequetErrorPage({Key key, this.msg=""}) : super(key: key);
+  const RequetErrorPage({Key key, this.msg = ""}) : super(key: key);
 
   @override
   _RequetErrorPageState createState() => _RequetErrorPageState();
 }
 
 class _RequetErrorPageState extends State<RequetErrorPage> {
-
   @override
   void initState() {
     super.initState();
@@ -26,10 +25,9 @@ class _RequetErrorPageState extends State<RequetErrorPage> {
   }
 
   @override
-  dispose(){
+  dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {

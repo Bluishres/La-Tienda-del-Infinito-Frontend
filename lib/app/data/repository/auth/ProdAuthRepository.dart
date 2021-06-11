@@ -1,5 +1,4 @@
 // @dart=2.9
-import 'dart:convert';
 
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +11,10 @@ import 'package:shopend/app/data/security/OAuth.dart';
 import 'package:shopend/app/domain/fails/_fails.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
+
 import 'AuthRepository.dart';
 
 class ServerAuthRepository extends AuthRepository {
-
   final oauthStorage = new OAuthSecureStorage();
   final _appState = locator<AppState>();
 
@@ -29,7 +28,7 @@ class ServerAuthRepository extends AuthRepository {
     });
   }
 
-  bool isDemoUser=false;
+  bool isDemoUser = false;
   String _token = "";
   String _refreshToken = "";
 
@@ -41,58 +40,56 @@ class ServerAuthRepository extends AuthRepository {
     @required String username,
     @required String password,
   }) async {
-
     username = username.replaceAll(RegExp('\t'), '');
     password = password.replaceAll(RegExp('\t'), '');
 
     try {
-
       var data = {};
       var resp;
 
-      if (username.toLowerCase()==Constans.demoUser.id.toString() && password.toLowerCase()==Constans.demoUser.password) {
-
+      if (username.toLowerCase() == Constans.demoUser.id.toString() &&
+          password.toLowerCase() == Constans.demoUser.password) {
         data['accessToken'] = "Be4nhbvfzl...";
         data['refreshToken'] = "Be4nhbvfzlZI1N79R6q/Bx4lPlyafKQwQxAxfrloXSw=";
 
-        isDemoUser=true;
-
+        isDemoUser = true;
       } else {
         resp = data = await apiService.signIn(username, password);
       }
 
-        _token = resp['accessToken'];
-        _refreshToken = resp['refreshToken'];
+      _token = resp['accessToken'];
+      _refreshToken = resp['refreshToken'];
 
-        String userId = resp['userId'];
+      String userId = resp['userId'];
 
-        apiService.token = _token;
+      apiService.token = _token;
 
-        if (!isDemoUser) {
-          //var personalInfo = await apiService.callUserInfo(userId);
+      if (!isDemoUser) {
+        //var personalInfo = await apiService.callUserInfo(userId);
 
-          var user = Usuario.fromJson(null);  //TODO fix this
+        var user = Usuario.fromJson(null); //TODO fix this
 
-          _appState.AssignLoggedUser(user); //Asignar al estado el usuario recien logado.
+        _appState.AssignLoggedUser(
+            user); //Asignar al estado el usuario recien logado.
 
-          //subcribe a notifications-topics by user-config
-          //TODO: Noitifications-subscribe enabled
-          // await user.subscribeToNotificationsTopics();
+        //subcribe a notifications-topics by user-config
+        //TODO: Noitifications-subscribe enabled
+        // await user.subscribeToNotificationsTopics();
 
-          await persistToken(new OAuthToken(accessToken: _token, refreshToken: _refreshToken));
+        await persistToken(
+            new OAuthToken(accessToken: _token, refreshToken: _refreshToken));
+      } else {
+        _appState.AssignLoggedUser(Constans.demoUser);
+      }
 
-        } else {
-          _appState.AssignLoggedUser(Constans.demoUser);
-        }
-
-        //Envio notificacion de login, una vez obtenido el usuario
-        locator<EventManager>().sendEvent(EventChannel.Autentication, AuthLoggedEvent());
-        _appState.executeActionsAfterLogin();
-
+      //Envio notificacion de login, una vez obtenido el usuario
+      locator<EventManager>()
+          .sendEvent(EventChannel.Autentication, AuthLoggedEvent());
+      _appState.executeActionsAfterLogin();
     } on SignInUserPassNoValidException {
       _setEmtpyTokens();
       throw Exception('Usuario/contraseña no válidos');
-    } on Exception catch (ex,s) {
+    } on Exception catch (ex, s) {
       //TODO: Activate CRASHLYTICS
       // Crashlytics.instance.recordError(ex, s);
       _setEmtpyTokens();
@@ -103,8 +100,8 @@ class ServerAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<bool> changepass({String username, String oldpass, String newpass}) async {
-
+  Future<bool> changepass(
+      {String username, String oldpass, String newpass}) async {
     oldpass = oldpass.replaceAll(RegExp('\t'), '');
     newpass = newpass.replaceAll(RegExp('\t'), '');
 
@@ -112,16 +109,13 @@ class ServerAuthRepository extends AuthRepository {
       await apiService.changePass(username, oldpass, newpass);
 
       return true;
-
-    } on ChangeUserPasswordFail catch(chex) {
+    } on ChangeUserPasswordFail catch (chex) {
       throw ChangeUserPasswordFail('${chex}');
-
-    } on Exception catch (ex,s) {
+    } on Exception catch (ex, s) {
       // Crashlytics.instance.recordError(ex, s);
       // Crashlytics.instance.recordError(ex, s);
       throw Exception('Error actualizar contraseña');
     }
-
   }
 
   _setEmtpyTokens() {
@@ -138,7 +132,8 @@ class ServerAuthRepository extends AuthRepository {
   }
 
   Future<void> persistToken(OAuthToken token) async {
-    await oauthStorage.save(OAuthToken(accessToken: _token, refreshToken: _refreshToken));
+    await oauthStorage
+        .save(OAuthToken(accessToken: _token, refreshToken: _refreshToken));
     return;
   }
 
@@ -155,6 +150,4 @@ class ServerAuthRepository extends AuthRepository {
   String getToken() {
     return _token;
   }
-
-
 }

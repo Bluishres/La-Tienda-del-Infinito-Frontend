@@ -1,27 +1,23 @@
 // @dart=2.9
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:shopend/app/common/logger.dart';
 import 'package:shopend/app/data/provider/api.dart';
 import 'package:shopend/app/data/provider/api_service.dart';
 import 'package:shopend/app/domain/model/Usuario.dart';
-import 'package:shopend/app/domain/model/post_model.dart';
 
 import '../../../locator.dart';
 import 'UserRepository.dart';
 
 class ProdUsuarioRepository implements UserRepository {
-
   final apiService = locator<APIService>();
+
   /// Arreglar el postUser
   @override
   Future<Usuario> postUser({Usuario USER}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
       var data = await apiService.requestPost(Endpoint.user_post, USER);
-      
+
       return Usuario.fromJson(data);
     } on Exception catch (ex, s) {
       throw ex;
@@ -55,7 +51,8 @@ class ProdUsuarioRepository implements UserRepository {
   @override
   Future<Usuario> getUserByEmail({String email}) async {
     try {
-      var data = await apiService.callGetMasterPrueba(Endpoint.user_getByEmail, id: email);
+      var data = await apiService.callGetMasterPrueba(Endpoint.user_getByEmail,
+          id: email);
 
       //Procesar
       try {
@@ -68,10 +65,12 @@ class ProdUsuarioRepository implements UserRepository {
       throw ex;
     }
   }
+
   @override
   Future<Usuario> getUserByNick({String nick}) async {
     try {
-      var data = await apiService.callGetMasterPrueba(Endpoint.user_getByNick, id: nick);
+      var data = await apiService.callGetMasterPrueba(Endpoint.user_getByNick,
+          id: nick);
 
       //Procesar
       try {
@@ -86,10 +85,11 @@ class ProdUsuarioRepository implements UserRepository {
   }
 
   @override
-  Future<bool> deleteUsuario({int id}) async{
+  Future<bool> deleteUsuario({int id}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      var data = await apiService.requestDelete(Endpoint.user_delete, id: id.toString());
+      var data = await apiService.requestDelete(Endpoint.user_delete,
+          id: id.toString());
       bool b = data.toString().toLowerCase() == 'true';
       return b;
     } on Exception catch (ex, s) {
@@ -98,7 +98,7 @@ class ProdUsuarioRepository implements UserRepository {
   }
 
   @override
-  Future<Usuario> putUsuario({Usuario userModel}) async{
+  Future<Usuario> putUsuario({Usuario userModel}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
       var data = await apiService.requestPut(Endpoint.user_put, userModel);

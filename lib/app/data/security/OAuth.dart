@@ -8,7 +8,8 @@ class OAuthToken {
 
 abstract class OAuthStorage {
   Future<OAuthToken> fetch();
+
   Future<OAuthToken> save(OAuthToken token);
+
   Future<void> clear();
 }
-

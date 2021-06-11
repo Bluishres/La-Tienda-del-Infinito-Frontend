@@ -9,7 +9,6 @@ class RequetTimeoutErrorPage extends StatefulWidget {
 }
 
 class _RequetTimeoutErrorPageState extends State<RequetTimeoutErrorPage> {
-
   @override
   void initState() {
     super.initState();
@@ -22,7 +21,7 @@ class _RequetTimeoutErrorPageState extends State<RequetTimeoutErrorPage> {
   }
 
   @override
-  dispose(){
+  dispose() {
     super.dispose();
   }
 

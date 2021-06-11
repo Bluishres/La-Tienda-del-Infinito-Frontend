@@ -32,7 +32,8 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
           if (connectivityState.hasData &&
               (connectivityState.data == ConnectivityStatus.Cellular ||
                   connectivityState.data == ConnectivityStatus.WiFi)) {
-            Timer(Duration(milliseconds: 500), () => Navigator.of(context).pop<int>(-1));
+            Timer(Duration(milliseconds: 500),
+                () => Navigator.of(context).pop<int>(-1));
             internetConnection = true;
           }
 
@@ -48,14 +49,17 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
                   ),
                 ),
                 Text("Error de conexión",
-                    style: context.textTheme.headline6.merge(TextStyle(color: Colors.black, fontWeight: FontWeight.w800))),
+                    style: context.textTheme.headline6.merge(TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w800))),
                 SizedBox(
                   height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text("¿Has comprobado que estás conectado a una red Wifi o que tienes los datos activados?",
-                      style: context.textTheme.subtitle1.merge(TextStyle(color: Colors.grey, fontWeight: FontWeight.w700))),
+                  child: Text(
+                      "¿Has comprobado que estás conectado a una red Wifi o que tienes los datos activados?",
+                      style: context.textTheme.subtitle1.merge(TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.w700))),
                 ),
                 SizedBox(
                   height: 10,
