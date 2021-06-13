@@ -6,4 +6,3 @@ Realizado por José Antonio Busto y Manuel Santos.
 
 De forma general, esta parte del proyecto está realizado bajo la tecnología multiplataforma Flutter y el lenguaje Dart.
 
-[Rama main para integración continua]
