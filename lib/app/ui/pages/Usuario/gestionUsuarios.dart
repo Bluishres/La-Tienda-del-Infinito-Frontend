@@ -85,7 +85,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                       Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '${users[i].nombre.toString()}',
+                            '${users[i].nick.toString()}',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
