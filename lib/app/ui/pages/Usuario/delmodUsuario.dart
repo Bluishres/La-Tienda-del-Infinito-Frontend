@@ -564,8 +564,6 @@ class DelModUsuarioState extends State<DelModUsuario> {
                       _buildFechaNacimiento(),
                       _buildDireccion(),
                       SizedBox(height: 25.0),
-                      _buildBtnEditarUser(),
-                      SizedBox(height: 15.0),
                       _buildBtnEliminarUser(),
                       SizedBox(height: 15.0),
                     ],

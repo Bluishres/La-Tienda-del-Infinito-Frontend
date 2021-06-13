@@ -17,6 +17,7 @@ enum Endpoint {
   product_delete,
   hilo,
   hilo_getbyid,
+  mensajes,
   mensaje,
   comprar,
   addFavorito
@@ -193,7 +194,8 @@ class API {
     Endpoint.addFavorito: 'latiendadelinfinito/shop/fav',
     Endpoint.hilo: 'latiendadelinfinito/foro/hilo',
     Endpoint.hilo_getbyid: 'latiendadelinfinito/foro/hilo/get',
-    Endpoint.mensaje: 'latiendadelinfinito/foro/hilo/mensajes',
+    Endpoint.mensajes: 'latiendadelinfinito/foro/hilo/mensajes',
+    Endpoint.mensaje: 'latiendadelinfinito/foro/hilo/mensaje',
 
   };
 }

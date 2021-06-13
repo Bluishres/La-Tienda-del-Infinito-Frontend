@@ -1,177 +1,271 @@
 // @dart=2.9
+import 'dart:math';
+
+import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shopend/app/common/BoxDecorationGeneral.dart';
+import 'package:shopend/app/common/GeneralToast.dart';
+import 'package:shopend/app/common/logger.dart';
+import 'package:shopend/app/data/repository/_repositorys.dart';
+import 'package:shopend/app/domain/model/_models.dart';
+import 'package:shopend/app/locator.dart';
 
-class ForumDetailPage extends StatefulWidget {
-  ForumDetailPage();
 
+
+class ForumDetailPage extends StatefulWidget  {
+  final Usuario user;
+  final Hilo hilo;
+  ForumDetailPage({Key key, this.hilo, this.user})
+      : super(key: key);
   @override
   _ForumDetailPageState createState() => new _ForumDetailPageState();
 }
 
-var ForumPostArr = [
-  new ForumPostEntry("User1", "2 Days ago", 0 , 0 , "Hello,\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-  new ForumPostEntry("User2", "23 Hours ago", 1 , 0 , "Pellentesque justo metus, finibus porttitor consequat vitae, tincidunt vitae quam. Vestibulum molestie sem diam. Nullam pretium semper tempus. Maecenas lobortis lacus nunc, id lacinia nunc imperdiet tempor. Mauris mi ipsum, finibus consectetur eleifend a, maximus eget lorem. Praesent a magna nibh. In congue sapien sed velit mattis sodales. Nam tempus pulvinar metus, in gravida elit tincidunt in. Curabitur sed sapien commodo, fringilla tortor eu, accumsan est. Proin tincidunt convallis dolor, a faucibus sapien auctor sodales. Duis vitae dapibus metus. Nulla sit amet porta ipsum, posuere tempor tortor.\n\nCurabitur mauris dolor, cursus et mi id, mattis sagittis velit. Duis eleifend mi et ante aliquam elementum. Ut feugiat diam enim, at placerat elit semper vitae. Phasellus vulputate quis ex eu dictum. Cras sapien magna, faucibus at lacus vel, faucibus viverra lorem. Phasellus quis dui tristique, ultricies velit non, cursus lectus. Suspendisse neque nisl, vestibulum non dui in, vulputate placerat elit. Sed at convallis mauris, eu blandit dolor. Vivamus suscipit iaculis erat eu condimentum. Aliquam erat volutpat. Curabitur posuere commodo arcu vel consectetur."),
-  new ForumPostEntry("User3", "2 Days ago", 5 , 0 , "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-  new ForumPostEntry("User4", "2 Days ago", 0 , 0 , "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-];
+class _ForumDetailPageState extends State<ForumDetailPage> with TickerProviderStateMixin {
+  Hilo _hilo;
+  List _mensajesList = <Mensaje>[];
+  Usuario _user;
+  HiloRepository _repoHilo = locator<HiloRepository>();
+  final _mensaje = TextEditingController();
+  bool _isDelete = false;
+  AnimateIconController _animationController;
 
-class _ForumDetailPageState extends State<ForumDetailPage> {
-  int forumtype;
-  String category;
   @override
-  Widget build(BuildContext context) {
-
-    var questionSection = new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new Column(
-        children: <Widget>[
-          new Text(
-            "How do I become a expert in programming as well as design ??",
-            textScaleFactor: 1.5,
-            style: new TextStyle(fontWeight: FontWeight.bold),
-          ),
-          new Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                new IconWithText(Icons.laptop_mac, "Technology"),
-                new IconWithText(
-                  Icons.check_circle,
-                  "Answered",
-                  iconColor: Colors.green,
-                ),
-                new IconWithText(Icons.remove_red_eye, "54")
-              ],
-            ),
-          ),
-          new Divider()
-        ],
-      ),
-    );
-
-    var responses = new Container(
-        padding: const EdgeInsets.all(8.0),
-        child: new ListView.builder(
-          itemBuilder: (BuildContext context, int index) => new ForumPost(ForumPostArr[index]),
-          itemCount: ForumPostArr.length,
-        )
-    );
+  void initState() {
+    _user = widget.user;
+    _hilo = widget.hilo;
+    _animationController = AnimateIconController();
+    getAllmensajes();
   }
-}
 
-class ForumPostEntry{
-  final String username;
-  final String hours;
-  final int likes;
-  final int dislikes;
-  final String text;
+  bool setDelete(){
+    if(!_isDelete) {
+      SuccessToast("Selecciona el mensaje que quieres eliminar.");
+    }
+    setState(() {
+      _isDelete = !_isDelete;
+    });
+    return true;
+  }
 
-  ForumPostEntry(this.username, this.hours, this.likes, this.dislikes, this.text);
-}
+  void _eliminarMensaje(Mensaje mensaje) {
+    if(_user.admin || _user.nick == mensaje.autor.nick){
+    _repoHilo
+        .deleteMensaje(id: mensaje.id)
+        .then((value) => setState((){
+      _isDelete = false;
+    }))
+        .then((value) => SuccessToast("Mensaje eliminado."))
+        .then((value) => getAllmensajes())
+        .catchError((Object error) {
+      SuccessToast('Error al eliminar mensaje.');
+      return error;
+    });}else{
+      if(_user.nick != mensaje.autor.nick && !_user.admin){
+        SuccessToast('Solo puedes borrar tus mensajes.');
+      }
+    }
+  }
 
-class ForumPost extends StatelessWidget {
-  final ForumPostEntry entry;
+  Future<void> getAllmensajes() async {
+    _repoHilo
+        .getMensajesByhilo(idHilo: _hilo.id)
+        .then((listaMensajes) => setState(() {
+      _mensajesList = listaMensajes;
+    }))
+        .then((value) => SuccessToast("Actualizado los mensajes."))
+        .catchError((Object error) {
+      SuccessToast("No se han podido actualizar los mensajes.");
+    });
+  }
 
-  ForumPost(this.entry);
+  Future<void> _escribirMensaje()async {
+    if(_mensaje.text.isNotEmpty){
+    _repoHilo
+        .postMensaje(fecha: DateTime.now().toString().substring(0,10),id_Creador: _user.id, id_Hilo: _hilo.id, mensaje: _mensaje.text)
+        .then((mensaje) => setState(() {
+        _mensaje.text = "";
+        _mensajesList.add(mensaje);
+    }))
+        .then((value) => SuccessToast("Mensaje enviado correctamente."))
+        .then((value) => getAllmensajes())
+        .catchError((Object error) {
+      SuccessToast("No se ha podido enviar el mensaje.");
+    });}else{
+      SuccessToast("Debes insertar algun mensaje.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      margin: const EdgeInsets.all(5.0),
-      decoration: new BoxDecoration(
-        color: Colors.green,
-        borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
-      ),
-      child: new Column(
-        children: <Widget>[
-          new Container(
-            decoration: new BoxDecoration(
-              color: Colors.green,
-              borderRadius: const BorderRadius.only(
-                  topLeft: const Radius.circular(20.0),
-                  topRight: const Radius.circular(20.0)),
-            ),
-            child: new Row(
-              children: <Widget>[
-                new Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 50.0,
+    return Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  _hilo.titulo,
+                  textAlign: TextAlign.left,
                 ),
-                new Expanded(
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(
-                        entry.username
-                        ,style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+        body: Stack(children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: _isDelete ? conisDelete() : conisNormal(),
+          ),
+          Container(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.08),
+              child: ListView.builder(
+                  itemCount: _mensajesList.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildHiloCard(context, index)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Theme(
+              data: Theme.of(context).copyWith(canvasColor: Colors.white),
+              child: Container(
+                  child: Stack(
+                      children: <Widget>[
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      width: MediaQuery.of(context).size.width * 0.79,
+                      padding: EdgeInsets.only(left: 10, bottom: 10),
+                      child: TextField(
+                        maxLines: null,
+                        controller: _mensaje,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white),borderRadius: BorderRadius.all(Radius.circular(100))),
+                          focusedBorder:OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintText: 'Escribe un mensaje...',
+                        )
                       ),
-                      new Text(
-                        entry.hours,style: TextStyle(color: Colors.white),
+                    ),
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              RawMaterialButton(
+                                onPressed: () {_escribirMensaje();},
+                                elevation: 10.0,
+                                fillColor: Colors.cyan,
+                                child: Icon(
+                                  Icons.send,
+                                  size: 27.0,
+                                  color: Colors.white,
+                                ),
+                                padding: EdgeInsets.all(15.0),
+                                shape: CircleBorder(),
+                              ),
+                            ],
+                          ),
+                        ),
+                  ])),
+            ),
+          ),
+        ]),
+    floatingActionButton: Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.1),
+      child: FloatingActionButton(
+          onPressed: () => {setDelete()},
+      child: AnimateIcons(
+        startIcon: Icons.delete,
+        endIcon: Icons.cancel,
+        controller: _animationController,
+        size: 30.0,
+        onEndIconPress: () => setDelete(),
+        onStartIconPress: () => setDelete(),
+        duration: Duration(milliseconds: 200),
+      ),
+      backgroundColor: Colors.red,
+      ),
+    ));
+  }
+
+  Widget buildHiloCard(BuildContext context, int index) {
+    return Container(
+      child: GestureDetector(
+        onTap: () => {_isDelete ? _eliminarMensaje(_mensajesList[index]) : null},
+        child: Card(
+          color: Color.fromRGBO(207, 255, 205, 4.0),
+          child: InkWell(
+            splashColor: Colors.blue.withAlpha(30),
+            child: Container(
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child:
+                          Padding(
+                            padding: EdgeInsets.only(top: 8.0, bottom: 4.0),
+                            child: Row(
+                              children: [
+                                Image.network(_mensajesList[index].autor.fotoPerfil,width: 50, height: 50,),
+                                SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    _mensajesList[index].autor.nick,
+                                        style: GoogleFonts.viaodaLibre(
+                                            fontSize: 25.0, fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child:
+                        Padding(
+                          padding: EdgeInsets.only(top: 2, bottom: 4.0),
+                          child: Container(
+                              child: Text(
+                                _mensajesList[index].fechaCreacion.toString().substring(0,10),
+                                style: GoogleFonts.viaodaLibre(
+                                    fontSize: 15.0, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.left,
+                              )),
+                        ),
+                      ),
+                      SizedBox(height: 15.0),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child:
+                        Padding(
+                          padding: EdgeInsets.only(top: 2, bottom: 4.0),
+                          child: Container(
+                              child: Text(
+                                _mensajesList[index].mensaje.toString().replaceAll("\"", ""),
+                                style: GoogleFonts.alef(
+                                    fontSize: 17.0, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                new Row(
-                  children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: new Icon(Icons.thumb_up,color: Colors.amber,),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: new Text(entry.likes.toString(),style: TextStyle(color: Colors.white),),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: new Icon(Icons.thumb_down,color: Colors.amber,),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(right: 8.0, left: 2.0),
-                      child: new Text(entry.dislikes.toString(),style: TextStyle(color: Colors.white),),
-                    ),
-                  ],
-                )
-              ],
+              ),
             ),
           ),
-          new Container(
-            margin: const EdgeInsets.only(left: 2.0,right: 2.0,bottom: 2.0),
-            padding: const EdgeInsets.all(8.0),
-            decoration: new BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: const BorderRadius.only(bottomLeft :const Radius.circular(20.0),bottomRight :const Radius.circular(20.0))
-            ),
-            child: new Text(entry.text),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class IconWithText extends StatelessWidget {
-  final IconData iconData;
-  final String text;
-  final Color iconColor;
-
-  IconWithText(this.iconData, this.text, {this.iconColor});
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      child: new Row(
-        children: <Widget>[
-          new Icon(
-            this.iconData,
-            color: this.iconColor,
-          ),
-          new Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: new Text(this.text),
-          ),
-        ],
       ),
     );
   }

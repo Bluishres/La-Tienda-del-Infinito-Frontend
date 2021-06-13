@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shopend/app/common/GeneralToast.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/ui/pages/Foro/ForoPage.dart';
@@ -15,21 +16,21 @@ class MenuLateralLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Drawer(
+    return Drawer(
       child: ListView(
         children: <Widget>[
-          new UserAccountsDrawerHeader(
+          UserAccountsDrawerHeader(
             currentAccountPicture: Image(
                 image: NetworkImage(_user.fotoPerfil), fit: BoxFit.contain),
-            accountName: new Text(
+            accountName: Text(
               _user != null ? _user.nick : "Cargando...",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: GoogleFonts.viaodaLibre(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            accountEmail: new Text(
+            accountEmail: Text(
               _user != null
                   ? _user.email + (_user.admin ? " - Administrador" : "")
                   : "Cargando...",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              style: GoogleFonts.viaodaLibre(fontWeight: FontWeight.bold, fontSize: 13),
             ),
             decoration: BoxDecoration(
                 color: Color.fromRGBO(191, 229, 245, 5.0),
@@ -40,15 +41,14 @@ class MenuLateralLogin extends StatelessWidget {
                       Colors.cyan.withOpacity(0.5), BlendMode.dstATop),
                 )),
           ),
-          new ListTile(
+           ListTile(
             leading: Icon(Icons.account_box, color: Colors.cyan, size: 30.0),
             title: RaisedButton(
               color: Color.fromRGBO(240, 165, 165, 4.0),
               hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
               child: Text(
                 "Perfil",
-                style: TextStyle(
-                    fontFamily: "OpenSans",
+                style: GoogleFonts.viaodaLibre(
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               ),
@@ -60,7 +60,7 @@ class MenuLateralLogin extends StatelessWidget {
               },
             ),
           ),
-          new ListTile(
+           ListTile(
             leading: Icon(Icons.attach_email_outlined,
                 color: Colors.cyan, size: 30.0),
             title: RaisedButton(
@@ -68,8 +68,7 @@ class MenuLateralLogin extends StatelessWidget {
               hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
               child: Text(
                 "Foro",
-                style: TextStyle(
-                    fontFamily: "OpenSans",
+                style: GoogleFonts.viaodaLibre(
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               ),
@@ -90,8 +89,7 @@ class MenuLateralLogin extends StatelessWidget {
                     hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
                     child: Text(
                       "Gestión Usuarios",
-                      style: TextStyle(
-                          fontFamily: "OpenSans",
+                      style: GoogleFonts.viaodaLibre(
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     ),
@@ -134,8 +132,7 @@ class MenuLateral extends StatelessWidget {
               hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
               child: Text(
                 "Perfil",
-                style: TextStyle(
-                    fontFamily: "OpenSans",
+                style: GoogleFonts.viaodaLibre(
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               ),
@@ -150,8 +147,7 @@ class MenuLateral extends StatelessWidget {
               hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
               child: Text(
                 "Foro",
-                style: TextStyle(
-                    fontFamily: "OpenSans",
+                style: GoogleFonts.viaodaLibre(
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               ),
@@ -163,3 +159,5 @@ class MenuLateral extends StatelessWidget {
     );
   }
 }
+
+

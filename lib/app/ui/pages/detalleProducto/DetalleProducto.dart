@@ -64,7 +64,7 @@ class _DetalleProductoState extends State<DetalleProducto> {
         descripcion: _producto.descripcion,
         nombre: _producto.nombre,
         precio: _producto.precio,
-        stockDisponible: _producto.stockDisponible - 1,
+        stockDisponible: _producto.stockDisponible - _cantidad,
         fechaCreacion: _producto.fechaCreacion,
         imagen: _producto.imagen,
         id: _producto.id);
@@ -106,6 +106,7 @@ class _DetalleProductoState extends State<DetalleProducto> {
     setState(() {
       _isloading = true;
     });
+    if(_producto.stockDisponible != 0){
     _repoTienda.Comprar(
             fecha: DateTime.now().toString(),
             importe: (double.parse(_producto.precio) * _cantidad),
@@ -123,13 +124,15 @@ class _DetalleProductoState extends State<DetalleProducto> {
       });
       SuccessToast('Error al comprar este producto.');
       return error;
-    });
+    });}else{
+      setState(() {
+        _isloading = false;
+      });
+      SuccessToast("No hay stock de este producto.");
+    }
   }
 
   void addFavorito() {
-    setState(() {
-      _isloading = true;
-    });
     _repoTienda
         .addFavorito(id_producto: _producto.id, id_usuario: _userActivo.id)
         .then((favorito) => setState(() {

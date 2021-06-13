@@ -39,10 +39,10 @@ class _ProductDescriptionState extends State<ProductDescription> {
   }
 
   void setFavorite() {
+    Addfavorito();
     setState(() {
       _isFavorite = true;
     });
-    Addfavorito();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class RegistrarPageState extends State<RegistrarPage> {
   bool _isError = false;
   bool _isValidatebad = false;
   File _image = null;
+  String errorEmail = "";
 
   Future getImage(bool gallery) async {
     ImagePicker picker = ImagePicker();
@@ -138,13 +140,17 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   void _subirusuario() {
     if (!_isEmailbad && !_isNickbad && !_isValidatebad) {
+      if(foto.text.isNotEmpty){
       _saveImage(_image, sightingRef)
           .then((value) => _subirUsuarioBD())
           .catchError((Object error) {
         SuccessToast(
             "Ha ocurrido un error al subir la imagen, por favor vuelve a subirla.");
         return error;
-      });
+      });}
+      else{
+        _subirUsuarioBD();
+      }
     } else {
       setState(() {
         _isloading = false;
@@ -187,6 +193,7 @@ class RegistrarPageState extends State<RegistrarPage> {
     if (_comprobar_user != null) {
       setState(() {
         _isEmailbad = true;
+        errorEmail = "Email ya en uso.";
       });
     } else {
       setState(() {
@@ -222,6 +229,7 @@ class RegistrarPageState extends State<RegistrarPage> {
   }
 
   void _comprobar_Usuario() {
+    bool emailValid = EmailValidator.validate(email.text);
     setState(() {
       _isloading = true;
       _isError = false;
@@ -231,6 +239,12 @@ class RegistrarPageState extends State<RegistrarPage> {
           ? _isValidatebad = true
           : _isValidatebad = false;
     });
+    if(!emailValid){
+      _isEmailbad = true;
+      _isError = true;
+      _isloading = false;
+      errorEmail = "No es un email válido.";
+    }else{
     _repo
         .getUserByEmail(email: email.text)
         .then((user) => setState(() {
@@ -241,7 +255,7 @@ class RegistrarPageState extends State<RegistrarPage> {
         .catchError((Object error) {
       _comprobar_Usuario2();
       return error;
-    });
+    });}
   }
 
   Widget _buildFotoPerfilshow() {
@@ -465,7 +479,7 @@ class RegistrarPageState extends State<RegistrarPage> {
           ),
         ),
         _isEmailbad
-            ? Text('Email ya en uso.',
+            ? Text(errorEmail,
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

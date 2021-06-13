@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
                                   fontFamily: "OpenSans",
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Colors.green),
+                                  color: _product.stockDisponible == 0 ? Colors.red : Colors.green),
                             ),
                           ],
                         ),

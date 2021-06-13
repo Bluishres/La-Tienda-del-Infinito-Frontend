@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopend/app/common/GeneralDrawer.dart';
 import 'package:shopend/app/common/GeneralToast.dart';
@@ -15,6 +16,7 @@ import 'package:shopend/app/locator.dart';
 import 'package:shopend/app/ui/pages/_pages.dart';
 import 'package:shopend/app/ui/pages/detalleProducto/DetalleProducto.dart';
 import 'package:shopend/app/ui/pages/Producto/registrarProducto.dart';
+import 'package:shopend/app/ui/widgets/indicator/loading_indicator.dart';
 
 class Main extends StatefulWidget {
   Main({Key key, this.title, this.ProductoList, this.errorProductos})
@@ -48,7 +50,7 @@ class _MainState extends State<Main> {
   PageController pageController;
   double viewportFraction = 0.8;
   double pageOffset = 0;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   FutureOr onGoBack(dynamic value) {
     setState(() {
@@ -79,17 +81,28 @@ class _MainState extends State<Main> {
     }
   }
 
+  void actualizar() {
+    setState(() {
+      _isLoading = true;
+    });
+    _recuperarUserbd();
+    _recuperarProductosbd(true);
+  }
+
   Future<void> _recuperarProductosbd(bool isActualizar) async {
     _repoProduct
         .getAllProduct()
         .then((listaProducto) => setState(() {
               _ProductoList = listaProducto;
+              _errorProductos = false;
+              _isLoading = false;
             }))
         .then((value) =>
             isActualizar ? SuccessToast("Actualizado los productos.") : null)
         .catchError((Object error) {
       setState(() {
         _errorProductos = true;
+        _isLoading = false;
       });
     });
   }
@@ -122,15 +135,49 @@ class _MainState extends State<Main> {
     Navigator.pop(context, 'OK');
   }
 
-  FloatingActionButton addProducto() {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegistrarProducto()))
-            .then((value) => onGoBack(value));
-      },
-      child: const Icon(Icons.add_box),
+  SpeedDial addProducto() {
+    return SpeedDial(
+      marginEnd: 18,
+      marginBottom: 20,
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      icon: Icons.menu,
+      activeIcon: Icons.remove,
+      buttonSize: 56.0,
+      visible: true,
+      closeManually: false,
+      renderOverlay: false,
+      curve: Curves.bounceIn,
+      overlayColor: Colors.black,
+      overlayOpacity: 0.5,
+      onOpen: () => print('OPENING DIAL'),
+      onClose: () => print('DIAL CLOSED'),
+      tooltip: 'Speed Dial',
+      heroTag: 'speed-dial-hero-tag',
       backgroundColor: Colors.cyan,
+      foregroundColor: Colors.white,
+      elevation: 8.0,
+      shape: CircleBorder(),
+      children: [
+        SpeedDialChild(
+          child: Icon(Icons.update),
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+          label: 'Actualizar',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () => {actualizar()},
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.add_box),
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          label: 'Añadir producto',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () => {Navigator.push(context,
+          MaterialPageRoute(builder: (context) => RegistrarProducto()))
+              .then((value) => onGoBack(value))},
+        ),
+      ],
     );
   }
 
@@ -272,53 +319,57 @@ class _MainState extends State<Main> {
                         _ProductoList[index].imagen,
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,
-                        alignment: Alignment((pageOffset - index).abs() * 0.5, 0),
+                        alignment:
+                            Alignment((pageOffset - index).abs() * 0.5, 0),
                       ),
                     ),
-                  ), AnimatedCrossFade(
-                      crossFadeState: angle == 0
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: Duration(
-                        milliseconds: 200,
+                  ),
+                  AnimatedCrossFade(
+                    crossFadeState: angle == 0
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    duration: Duration(
+                      milliseconds: 200,
+                    ),
+                    firstChild: SizedBox(
+                      height: 0,
+                    ),
+                    secondChild: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.2),
                       ),
-                      firstChild: SizedBox(
-                        height: 0,
-                      ),
-                      secondChild: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
+                      width: MediaQuery.of(context).size.width,
+                      child: AnimatedCrossFade(
+                        crossFadeState: angle == 0
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: Duration(
+                          milliseconds: 200,
                         ),
-                        width: MediaQuery.of(context).size.width,
-                        child: AnimatedCrossFade(
-                          crossFadeState: angle == 0
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                          duration: Duration(
-                            milliseconds: 200,
-                          ),
-                          firstChild: SizedBox(
-                            height: 0,
-                          ),
-                          secondChild: Hero(
-                            tag: 'text' + _ProductoList[index].nombre,
-                            child: Center(
-                              child: Text(
-                                _ProductoList[index].nombre +
-                                    "\n" +
-                                    _ProductoList[index].precio +
-                                    "€",
-                                style: GoogleFonts.stintUltraCondensed(color: Colors.white,
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.2,),
-                                textAlign: TextAlign.center,
+                        firstChild: SizedBox(
+                          height: 0,
+                        ),
+                        secondChild: Hero(
+                          tag: 'text' + _ProductoList[index].nombre,
+                          child: Center(
+                            child: Text(
+                              _ProductoList[index].nombre +
+                                  "\n" +
+                                  _ProductoList[index].precio +
+                                  "€",
+                              style: GoogleFonts.stintUltraCondensed(
+                                color: Colors.white,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),
@@ -341,47 +392,20 @@ class _MainState extends State<Main> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    //MediaQueryData queryData;
-    //queryData = MediaQuery.of(context);
-    SizeConfig().init(context);
-    timeDilation = 2;
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          title: Image.asset('assets/images/Logo.png'),
-          actions: [
-            currentUser != null
-                ? IconButton(
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => _showDialog(context))
-                : IconButton(
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()))
-                        .then((value) => onGoBack(value)),
-                  ),
-          ],
-        ),
-        drawer: currentUser != null ? MenuLateralLogin(_user) : MenuLateral(),
-        body: Container(
-            height: SizeConfig.safeBlockVertical * 100, //10 for example
-            width: SizeConfig.safeBlockHorizontal * 100, //10 for example
-            child: RefreshIndicator(
-              onRefresh: () async {
-                _recuperarProductosbd(true);
-              },
+   errorAppbar() {
+    return _isLoading
+        ? Center(
+            child: LoadingIndicator(),
+          )
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+                iconTheme: IconThemeData(color: Colors.black),
+                backgroundColor: Colors.white,
+                title: Image.asset('assets/images/Logo.png')),
+            body: Container(
+              height: SizeConfig.safeBlockVertical * 100, //10 for example
+              width: SizeConfig.safeBlockHorizontal * 100, //10 for example
               child: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle.light,
                   child: GestureDetector(
@@ -404,14 +428,104 @@ class _MainState extends State<Main> {
                             ),
                           ),
                         ),
-                        _errorProductos
-                            ? Text(
-                                "Error, no se ha podido obtener los productos.")
-                            : columna()
+                        Center(
+                          child: Text(
+                            "Error, la aplicación no se encuentra disponible en estos momentos.",
+                            style: GoogleFonts.viaodaLibre(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.0,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
                       ]))),
-            )),
-        floatingActionButton:
-            _user != null && _user.admin ? addProducto() : null);
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => {actualizar()},
+              child: const Icon(Icons.update),
+              backgroundColor: Colors.cyan,
+            ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //MediaQueryData queryData;
+    //queryData = MediaQuery.of(context);
+    SizeConfig().init(context);
+    timeDilation = 2;
+    return _errorProductos
+        ? errorAppbar()
+        : _isLoading
+        ? Center(
+      child: LoadingIndicator(),
+    )
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              iconTheme: IconThemeData(color: Colors.black),
+              backgroundColor: Colors.white,
+              title: Image.asset('assets/images/Logo.png'),
+              actions: [
+                currentUser != null
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.logout,
+                          color: Colors.black,
+                        ),
+                        onPressed: () => _showDialog(context))
+                    : IconButton(
+                        icon: Icon(
+                          Icons.login,
+                          color: Colors.black,
+                        ),
+                        onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()))
+                            .then((value) => onGoBack(value)),
+                      ),
+              ],
+            ),
+            drawer:
+                currentUser != null ? MenuLateralLogin(_user) : MenuLateral(),
+            body: Container(
+                height: SizeConfig.safeBlockVertical * 100, //10 for example
+                width: SizeConfig.safeBlockHorizontal * 100, //10 for example
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    _recuperarProductosbd(true);
+                  },
+                  child: AnnotatedRegion<SystemUiOverlayStyle>(
+                      value: SystemUiOverlayStyle.light,
+                      child: GestureDetector(
+                          onTap: () => FocusScope.of(context).unfocus(),
+                          child: Stack(children: <Widget>[
+                            Container(
+                              height: double.maxFinite,
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF61A4A6),
+                                    Color(0xFF61A4D8),
+                                    Color(0xFF11FAE1),
+                                    Color(0xFF398AE5),
+                                  ],
+                                  stops: [0.1, 0.4, 0.7, 0.9],
+                                ),
+                              ),
+                            ),
+                            columna()
+                          ]))),
+                )),
+            floatingActionButton:
+                _user != null && _user.admin ? addProducto() : FloatingActionButton(
+                  onPressed: () => {actualizar()},
+                  child: const Icon(Icons.update),
+                  backgroundColor: Colors.cyan,
+                ));
   }
 }
 

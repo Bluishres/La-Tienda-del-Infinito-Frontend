@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shopend/app/common/GeneralToast.dart';
 import 'package:shopend/app/data/repository/_repositorys.dart';
 import 'package:shopend/app/domain/model/_models.dart';
@@ -24,6 +25,7 @@ class _ProdCompradosPageState extends State<ProdCompradosPage> {
   Usuario _user;
   TiendaRepository _repoTicket = locator<TiendaRepository>();
   bool _isloading = true;
+  var f = NumberFormat("###.0#", "en_US");
 
   FutureOr onGoBack(dynamic value) {
     getAllTickets();
@@ -95,7 +97,7 @@ class _ProdCompradosPageState extends State<ProdCompradosPage> {
                   ),
                   Container(
                     child: Text(
-                      products[i].importe.toString() + "€",
+                      f.format(products[i].importe).toString() + "€",
                       style: new TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),

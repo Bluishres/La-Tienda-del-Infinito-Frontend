@@ -85,13 +85,12 @@ class ProdHiloRepository implements HiloRepository {
     await Future.delayed(Duration(seconds: 2));
     try {
       var data =
-          await apiService.requestGetID(Endpoint.mensaje,true, id: idHilo);
+          await apiService.requestGetID(Endpoint.mensajes,true, id: idHilo);
 
       var lista = (data as List).map((item) {
         try {
           return Mensaje.fromJson(item);
         } catch (_) {
-          logger.e(_);
           return Mensaje();
         }
       }).toList();
@@ -124,7 +123,7 @@ class ProdHiloRepository implements HiloRepository {
   Future<Mensaje> postMensaje({String fecha, int id_Creador, int id_Hilo, String mensaje}) async{
     await Future.delayed(Duration(seconds: 2));
     try {
-      var data = await apiService.PostMensaje(Endpoint.hilo,
+      var data = await apiService.PostMensaje(Endpoint.mensaje,
           fecha: fecha,
           id_Creador: id_Creador,
           mensaje: mensaje,
