@@ -140,7 +140,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   void _subirusuario() {
     if (!_isEmailbad && !_isNickbad && !_isValidatebad) {
-      if(foto.text.isNotEmpty){
+      if(_image != null){
       _saveImage(_image, sightingRef)
           .then((value) => _subirUsuarioBD())
           .catchError((Object error) {
