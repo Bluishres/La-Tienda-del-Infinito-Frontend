@@ -54,9 +54,6 @@ class _ForumDetailPageState extends State<ForumDetailPage> with TickerProviderSt
     if(_user.admin || _user.nick == mensaje.autor.nick){
     _repoHilo
         .deleteMensaje(id: mensaje.id)
-        .then((value) => setState((){
-      _isDelete = false;
-    }))
         .then((value) => SuccessToast("Mensaje eliminado."))
         .then((value) => getAllmensajes())
         .catchError((Object error) {
@@ -253,7 +250,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> with TickerProviderSt
                           padding: EdgeInsets.only(top: 2, bottom: 4.0),
                           child: Container(
                               child: Text(
-                                _mensajesList[index].mensaje.toString().replaceAll("\"", ""),
+                                _mensajesList[index].mensaje.toString().replaceAll("\"", "").replaceAll("\\n", "\n"),
                                 style: GoogleFonts.alef(
                                     fontSize: 17.0, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
