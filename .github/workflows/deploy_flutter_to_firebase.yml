@@ -42,6 +42,6 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '1//03fRD9CQrbtc3CgYIARAAGAMSNwF-L9IrqLlbUPEyoknwMZ8Hmeyn4pZncXFHeooHig3hmSIr3dEdzL_YQUAzLalPlfBTNJoy5Zo'
           channelId: live
-          projectId: 1:667468334753:web:2e9305ffb696f9e11292e0
+          projectId: la-tienda-del-infinito
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
