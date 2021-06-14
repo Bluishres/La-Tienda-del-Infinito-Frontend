@@ -1,6 +1,7 @@
 // @dart=2.9
 
 import 'package:flutter/material.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class HolePainter extends CustomPainter {
   HolePainter({
@@ -53,7 +54,7 @@ class HolePainter extends CustomPainter {
             stops: [0.1, 0.4, 0.7, 0.9],
           ).createShader(rect));
     canvas.drawPath(
-        halfTransparentRing, Paint()..color = color.withOpacity(0.5));
+        halfTransparentRing, Paint()..color = UniversalPlatform.isAndroid ? color.withOpacity(0.5) : color.withOpacity(0.1));
   }
 
   @override

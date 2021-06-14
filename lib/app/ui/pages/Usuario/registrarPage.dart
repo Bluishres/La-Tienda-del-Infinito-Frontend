@@ -278,14 +278,14 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildFotoPerfil() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text('Foto Perfil: ',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 10.0),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 50),
               Center(
                   child: RaisedButton(
                 shape: RoundedRectangleBorder(

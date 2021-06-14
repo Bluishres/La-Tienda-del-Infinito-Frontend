@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 import 'package:shopend/app/domain/model/_models.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
@@ -23,7 +24,7 @@ class _ProductImagesState extends State<ProductImages> {
     return Column(
       children: [
         SizedBox(
-          width: getProportionateScreenWidth(238, context: context),
+          width: UniversalPlatform.isAndroid ? getProportionateScreenWidth(238, context: context) : getProportionateScreenWidth(100, context: context),
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
@@ -32,7 +33,7 @@ class _ProductImagesState extends State<ProductImages> {
             ),
           ),
         ),
-        SizedBox(height: getProportionateScreenWidth(20, context: context)),
+        SizedBox(height: UniversalPlatform.isAndroid ? getProportionateScreenWidth(20, context: context) : getProportionateScreenWidth(1, context: context)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -49,9 +50,9 @@ class _ProductImagesState extends State<ProductImages> {
       child: AnimatedContainer(
         duration: const Duration(seconds: 2),
         margin: EdgeInsets.only(right: 15),
-        padding: EdgeInsets.all(8),
-        height: getProportionateScreenWidth(48, context: context),
-        width: getProportionateScreenWidth(48, context: context),
+        padding: UniversalPlatform.isAndroid ? EdgeInsets.all(8) : EdgeInsets.all(8),
+        height: UniversalPlatform.isAndroid ? getProportionateScreenWidth(48, context: context) : getProportionateScreenWidth(10, context: context),
+        width: UniversalPlatform.isAndroid ? getProportionateScreenWidth(48, context: context) : getProportionateScreenWidth(10, context: context),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shopend/app/ui/pages/Splash/Splashscreen.dart';
-import 'package:shopend/app/ui/pages/main.dart';
+import 'package:shopend/app/ui/pages/mainhome.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         errorProductos: errorProductos,
         ProductoList: ProductoList,
       ),
-      IgnorePointer(child: Splashscreen(color: Colors.cyan))
+      IgnorePointer(child: Splashscreen(color: Colors.cyan,))
     ]));
   }
 }

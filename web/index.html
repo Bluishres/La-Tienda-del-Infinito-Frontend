@@ -31,10 +31,28 @@
   <link rel="stylesheet" type="text/css" href="splash/style.css">
 </head>
 <body>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-firestore.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyAEs51YXAr7NLdpWtKHjsuGUludHwVkpn0",
+    authDomain: "la-tienda-del-infinito.firebaseapp.com",
+    databaseURL: "https://la-tienda-del-infinito-default-rtdb.firebaseio.com",
+    projectId: "la-tienda-del-infinito",
+    storageBucket: "la-tienda-del-infinito.appspot.com",
+    messagingSenderId: "667468334753",
+    appId: "1:667468334753:web:2e9305ffb696f9e11292e0",
+    measurementId: "G-ETHYV6XDF4"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
@@ -42,6 +60,7 @@
       });
     }
   </script>
+<!--  <script src="assets/require.js"></script>-->
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

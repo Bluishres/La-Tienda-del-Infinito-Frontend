@@ -247,60 +247,62 @@ class LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40.0,
-                          vertical: 60.0,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Iniciar Sesión',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'OpenSans',
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 30.0),
-                            _buildEmailTF(),
-                            SizedBox(
-                              height: 30.0,
-                            ),
-                            _buildPasswordTF(),
-                            _isError
-                                ? Text('Error , ' + errorUser + " " + errorPass,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red))
-                                : SizedBox(height: 0),
-                            _buildLoginBtn(),
-                            _buildSignupBtn(),
-                            RaisedButton(
-                              color: Color.fromRGBO(240, 165, 165, 4.0),
-                              hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
-                              child: Text(
-                                "Registro",
+                    Center(
+                      child: Container(
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.0,
+                            vertical: 60.0,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Iniciar Sesión',
                                 style: TextStyle(
-                                    fontFamily: "OpenSans",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
+                                  color: Colors.black,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegistrarPage()),
-                                );
-                              },
-                            ),
-                          ],
+                              SizedBox(height: 30.0),
+                              _buildEmailTF(),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              _buildPasswordTF(),
+                              _isError
+                                  ? Text('Error , ' + errorUser + " " + errorPass,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red))
+                                  : SizedBox(height: 0),
+                              _buildLoginBtn(),
+                              _buildSignupBtn(),
+                              RaisedButton(
+                                color: Color.fromRGBO(240, 165, 165, 4.0),
+                                hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                                child: Text(
+                                  "Registro",
+                                  style: TextStyle(
+                                      fontFamily: "OpenSans",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RegistrarPage()),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )

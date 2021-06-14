@@ -17,6 +17,7 @@ import 'package:shopend/app/ui/pages/_pages.dart';
 import 'package:shopend/app/ui/pages/detalleProducto/DetalleProducto.dart';
 import 'package:shopend/app/ui/pages/Producto/registrarProducto.dart';
 import 'package:shopend/app/ui/widgets/indicator/loading_indicator.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class Main extends StatefulWidget {
   Main({Key key, this.title, this.ProductoList, this.errorProductos})
@@ -318,7 +319,7 @@ class _MainState extends State<Main> {
                       child: Image.network(
                         _ProductoList[index].imagen,
                         width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
+                        fit: UniversalPlatform.isWeb ? BoxFit.contain : BoxFit.cover,
                         alignment:
                             Alignment((pageOffset - index).abs() * 0.5, 0),
                       ),
@@ -335,7 +336,7 @@ class _MainState extends State<Main> {
                       height: 0,
                     ),
                     secondChild: Container(
-                      decoration: BoxDecoration(
+                      decoration: UniversalPlatform.isWeb ? BoxDecoration() : BoxDecoration(
                         color: Colors.black.withOpacity(0.2),
                       ),
                       width: MediaQuery.of(context).size.width,

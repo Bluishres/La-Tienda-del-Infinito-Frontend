@@ -55,7 +55,7 @@ dependencies:
   sqflite: ^2.0.0+3
 
   #fonts
-  google_fonts: ^1.1.2
+  google_fonts: ^2.1.0
 
   #locator
   injectable: ^1.2.2
@@ -71,7 +71,7 @@ dependencies:
   #security
   flutter_secure_storage: ^4.1.0
 
-  dio: ^3.0.10
+  dio: ^4.0.0
   firebase_auth_web: ^0.3.0-dev.1
   intl: ^0.16.1
   animated_splash_screen: ^1.1.0
@@ -80,6 +80,8 @@ dependencies:
   flutter_speed_dial: ^3.0.5
   email_validator: ^2.0.1
   animate_icons: ^2.0.0
+  universal_platform: ^0.1.3
+  http: ^0.13.0
 
 
 dev_dependencies:
@@ -98,6 +100,8 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 dependency_overrides:
   args: 2.1.1
+  http_parser: 4.0.0
+  http: 0.13.0
 # The following section is specific to Flutter.
 flutter:
 

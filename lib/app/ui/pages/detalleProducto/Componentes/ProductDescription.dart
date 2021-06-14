@@ -58,7 +58,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-         Align(
+        _userActivo != null ? Align(
           alignment: Alignment.centerRight,
           child: _userActivo != null ? GestureDetector(
             onTap: () {setFavorite();},
@@ -84,7 +84,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
               ),
             ),
           ) : SizedBox(height: getProportionateScreenWidth(45, context: context),),
-        ) ,
+        ) : SizedBox(height: 10,) ,
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20, context: context),

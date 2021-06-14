@@ -9,6 +9,7 @@ import 'package:shopend/app/common/logger.dart';
 import 'package:shopend/app/config.dart';
 import 'package:shopend/app/domain/commands/_commands.dart';
 import 'package:shopend/app/domain/fails/_fails.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'api.dart';
 
@@ -455,12 +456,13 @@ class APIService {
   static Dio _configHttpAuthDio(API api) {
     Dio dio = new Dio();
 
+    if(UniversalPlatform.isAndroid){
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
       return client;
-    };
+    };}
 
     dio.options.baseUrl = api.hostUrl;
     dio.options.connectTimeout = appConfig.timeout;
@@ -494,12 +496,13 @@ class APIService {
   static Dio _configHttpDio(API api) {
     Dio dio = new Dio();
 
+    if(UniversalPlatform.isAndroid){
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
       return client;
-    };
+    };}
 
     dio.options.baseUrl = api.hostUrl;
     dio.options.connectTimeout = appConfig.timeout;
