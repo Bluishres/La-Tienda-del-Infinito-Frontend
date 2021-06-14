@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 import 'package:shopend/app/domain/model/_models.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ProductDescription extends StatefulWidget {
   Producto product;
@@ -64,8 +65,8 @@ class _ProductDescriptionState extends State<ProductDescription> {
             onTap: () {setFavorite();},
             child: Container(
               padding: EdgeInsets.all(
-                  getProportionateScreenWidth(15, context: context)),
-              width: getProportionateScreenWidth(64, context: context),
+                  UniversalPlatform.isAndroid ? getProportionateScreenWidth(15, context: context) : getProportionateScreenWidth(5, context: context)),
+              width: UniversalPlatform.isAndroid ? getProportionateScreenWidth(64, context: context) : getProportionateScreenWidth(20, context: context),
               decoration: BoxDecoration(
                 color: Color(0xFFFFE6E6),
                 borderRadius: BorderRadius.only(
@@ -76,11 +77,11 @@ class _ProductDescriptionState extends State<ProductDescription> {
               child: _isFavorite ? SvgPicture.asset(
                 "assets/logos/Heart_Icon_2.svg",
                 color: Color(0xFFFF4848),
-                height: getProportionateScreenWidth(16, context: context),
+                height: UniversalPlatform.isAndroid ? getProportionateScreenWidth(16, context: context) : getProportionateScreenWidth(5, context: context),
               ) : SvgPicture.asset(
                 "assets/logos/Heart_Icon.svg",
                 color: Color(0xFFFF4848),
-                height: getProportionateScreenWidth(16, context: context),
+                height: UniversalPlatform.isAndroid ? getProportionateScreenWidth(16, context: context) : getProportionateScreenWidth(5, context: context),
               ),
             ),
           ) : SizedBox(height: getProportionateScreenWidth(45, context: context),),

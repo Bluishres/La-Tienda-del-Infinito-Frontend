@@ -122,7 +122,7 @@ class MenuLateral extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
-                        "https://lh3.googleusercontent.com/pw/ACtC-3ciz4yQUfjXzVgrJh4nJeKl2MOZUV52osCiB_rVF2CSnRLc07vc4BAnbAUTNlmWqvFQYgehc78Dh0t9lSh4NJouYmHQQiFFEjI2JJGBaAzqssFzZTsG3cNXQ_RhjkjgXWWdjkCa2KLGcqEibnpI7EFj=w497-h326-no"),
+                        "https://firebasestorage.googleapis.com/v0/b/la-tienda-del-infinito.appspot.com/o/TDI%2FLA%20TIENDA%20DEL%20INFINITO%20v2.png?alt=media&token=c23bfac3-e90e-4ff9-aade-3ce19270cae4"),
                     fit: BoxFit.fill)),
           ),
           new ListTile(

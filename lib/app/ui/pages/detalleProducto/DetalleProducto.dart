@@ -5,6 +5,7 @@ import 'package:shopend/app/data/repository/_repositorys.dart';
 import 'package:shopend/app/domain/model/_models.dart';
 import 'package:shopend/app/locator.dart';
 import 'package:shopend/app/ui/widgets/indicator/loading_indicator.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'Componentes/CustomAppBar.dart';
 import 'Componentes/body.dart';

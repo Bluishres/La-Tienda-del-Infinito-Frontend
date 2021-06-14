@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 import 'package:shopend/app/domain/model/_models.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'DefaultButton.dart';
 import 'Price.dart';
@@ -68,7 +69,8 @@ class _BodyState extends State<Body> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: getProportionateScreenWidth(20, context: context)),
-                      child: Row(children: <Widget>[
+                      child: Row(
+                          children: <Widget>[
                         Column(
                           children: [
                             Text(
@@ -94,7 +96,34 @@ class _BodyState extends State<Body> {
                         ),
                       ]),
                     ),
-                    TopRoundedContainer(
+                    SizedBox(height: 20,),
+                    UniversalPlatform.isWeb ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20, context: context)),
+                      child: _userActivo != null ? Row(
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
+                            onPressed: () {Comprar();},
+                            child: Text("Comprar Producto"),
+                          ),
+                          SizedBox(width: 20,),
+                          _userActivo.admin ?  ElevatedButton(
+                            style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
+                            onPressed: () {Retirarproducto();},
+                            child: Text("Retirar Producto"),
+                          ) : SizedBox(height: 0,),
+                        ],
+                      ) : Center(
+                        child: Text("Debes estar registrado para comprar en esta plataforma.",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14
+                            ),
+                            textAlign: TextAlign.center),
+                      ),
+                    ) : SizedBox(height: 0,),
+                    UniversalPlatform.isAndroid ? TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -126,7 +155,7 @@ class _BodyState extends State<Body> {
                           textAlign: TextAlign.center),
                         ),
                       ),
-                    ),
+                    ) : SizedBox(height: 20,),
                   ],
                 ),
               ),

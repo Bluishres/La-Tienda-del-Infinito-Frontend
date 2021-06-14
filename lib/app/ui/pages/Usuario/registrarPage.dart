@@ -140,15 +140,15 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   void _subirusuario() {
     if (!_isEmailbad && !_isNickbad && !_isValidatebad) {
-      if(_image != null){
-      _saveImage(_image, sightingRef)
-          .then((value) => _subirUsuarioBD())
-          .catchError((Object error) {
-        SuccessToast(
-            "Ha ocurrido un error al subir la imagen, por favor vuelve a subirla.");
-        return error;
-      });}
-      else{
+      if (_image != null) {
+        _saveImage(_image, sightingRef)
+            .then((value) => _subirUsuarioBD())
+            .catchError((Object error) {
+          SuccessToast(
+              "Ha ocurrido un error al subir la imagen, por favor vuelve a subirla.");
+          return error;
+        });
+      } else {
         _subirUsuarioBD();
       }
     } else {
@@ -239,23 +239,24 @@ class RegistrarPageState extends State<RegistrarPage> {
           ? _isValidatebad = true
           : _isValidatebad = false;
     });
-    if(!emailValid){
+    if (!emailValid) {
       _isEmailbad = true;
       _isError = true;
       _isloading = false;
       errorEmail = "No es un email válido.";
-    }else{
-    _repo
-        .getUserByEmail(email: email.text)
-        .then((user) => setState(() {
-              _comprobar_user = user;
-            }))
-        .then((value) => _comprobar_estadoUsuarioE())
-        .then((value) => _comprobar_Usuario2())
-        .catchError((Object error) {
-      _comprobar_Usuario2();
-      return error;
-    });}
+    } else {
+      _repo
+          .getUserByEmail(email: email.text)
+          .then((user) => setState(() {
+                _comprobar_user = user;
+              }))
+          .then((value) => _comprobar_estadoUsuarioE())
+          .then((value) => _comprobar_Usuario2())
+          .catchError((Object error) {
+        _comprobar_Usuario2();
+        return error;
+      });
+    }
   }
 
   Widget _buildFotoPerfilshow() {
@@ -277,228 +278,236 @@ class RegistrarPageState extends State<RegistrarPage> {
   }
 
   Widget _buildFotoPerfil() {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text('Foto Perfil: ',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Center(
-                  child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Text('Galería'),
-                color: Color.fromRGBO(240, 165, 165, 4.0),
-                hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
-                onPressed: () {
-                  getImage(true);
-                },
-              )),
-              SizedBox(width: 50.0),
-              Center(
-                child: RaisedButton(
+    return Center(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Foto Perfil: ',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Center(
+                    child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  child: Text('Cámara'),
+                  child: Text('Galería'),
                   color: Color.fromRGBO(240, 165, 165, 4.0),
                   hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
                   onPressed: () {
-                    getImage(false);
+                    getImage(true);
                   },
+                )),
+                SizedBox(width: 50.0),
+                Center(
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text('Cámara'),
+                    color: Color.fromRGBO(240, 165, 165, 4.0),
+                    hoverColor: Color.fromRGBO(246, 237, 203, 4.0),
+                    onPressed: () {
+                      getImage(false);
+                    },
+                  ),
                 ),
-              ),
-            ],
-          )
-        ]);
+              ],
+            )
+          ]),
+    );
   }
 
   Widget _buildNick() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(children: <Widget>[
-          Column(children: <Widget>[
-            Text('Nick: ',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Column(crossAxisAlignment: CrossAxisAlignment.center,children: <Widget>[
+              Text('Nick: ',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ]),
+            Column(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+              Text('*',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red)),
+            ]),
           ]),
-          Column(children: <Widget>[
-            Text('*',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
-          ]),
-        ]),
-        SizedBox(height: 10.0),
-        Container(
-          width: 500.0,
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: nick,
-            style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 15.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.black,
+          SizedBox(height: 10.0),
+          Container(
+            width: 500.0,
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 60.0,
+            child: TextField(
+              controller: nick,
+              style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 15.0),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Colors.black,
+                ),
+                hintText: 'userNick',
+                hintStyle: kHintTextStyle,
               ),
-              hintText: 'userNick',
-              hintStyle: kHintTextStyle,
             ),
           ),
-        ),
-        _isNickbad
-            ? Text('Nick ya en uso.',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red))
-            : SizedBox(height: 0),
-        _isValidatebad && nick.text.isEmpty
-            ? Text('El campo es obligatorio.',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red))
-            : SizedBox(height: 0),
-      ],
+          _isNickbad
+              ? Text('Nick ya en uso.',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red))
+              : SizedBox(height: 0),
+          _isValidatebad && nick.text.isEmpty
+              ? Text('El campo es obligatorio.',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red))
+              : SizedBox(height: 0),
+        ],
+      ),
     );
   }
 
   Widget _buildPassword() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0),
-        ),
-        Row(children: <Widget>[
-          Column(children: <Widget>[
-            Text('Password: ',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.0),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Column(children: <Widget>[
+              Text('Password: ',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ]),
+            Column(children: <Widget>[
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text('*',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red)),
+              ),
+            ]),
           ]),
-          Column(children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: Text('*',
+          SizedBox(height: 10.0),
+          Container(
+            width: 500.0,
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 60.0,
+            child: TextField(
+              controller: password,
+              obscureText: true,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'OpenSans',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14.0),
+                prefixIcon: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                hintText: 'Password',
+                hintStyle: kHintTextStyle,
+              ),
+            ),
+          ),
+          _isValidatebad && password.text.isEmpty
+              ? Text('El campo es obligatorio.',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red)),
-            ),
-          ]),
-        ]),
-        SizedBox(height: 10.0),
-        Container(
-          width: 500.0,
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: password,
-            obscureText: true,
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.black,
-              ),
-              hintText: 'Password',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-        _isValidatebad && password.text.isEmpty
-            ? Text('El campo es obligatorio.',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red))
-            : SizedBox(height: 0),
-      ],
+                      color: Colors.red))
+              : SizedBox(height: 0),
+        ],
+      ),
     );
   }
 
   Widget _buildEmail() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0),
-        ),
-        Row(children: <Widget>[
-          Column(children: <Widget>[
-            Text('Email: ',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.0),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Column(children: <Widget>[
+              Text('Email: ',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ]),
+            Column(children: <Widget>[
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text('*',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red)),
+              ),
+            ]),
           ]),
-          Column(children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: Text('*',
+          SizedBox(height: 10.0),
+          Container(
+            width: 500.0,
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 60.0,
+            child: TextField(
+              controller: email,
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'OpenSans',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14.0),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Colors.black,
+                ),
+                hintText: 'Email',
+                hintStyle: kHintTextStyle,
+              ),
+            ),
+          ),
+          _isEmailbad
+              ? Text(errorEmail,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red)),
-            ),
-          ]),
-        ]),
-        SizedBox(height: 10.0),
-        Container(
-          width: 500.0,
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: email,
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.black,
-              ),
-              hintText: 'Email',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-        _isEmailbad
-            ? Text(errorEmail,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red))
-            : SizedBox(height: 0),
-        _isValidatebad && email.text.isEmpty
-            ? Text('El campo es obligatorio.',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red))
-            : SizedBox(height: 0),
-      ],
+                      color: Colors.red))
+              : SizedBox(height: 0),
+          _isValidatebad && email.text.isEmpty
+              ? Text('El campo es obligatorio.',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red))
+              : SizedBox(height: 0),
+        ],
+      ),
     );
   }
 
   Widget _buildNombre() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -537,7 +546,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildApellidos() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -576,7 +585,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildNacionalidad() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -615,7 +624,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildFechaNacimiento() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -644,6 +653,7 @@ class RegistrarPageState extends State<RegistrarPage> {
                   hintText: 'Fecha',
                   hintStyle: kHintTextStyle)),
         ),
+        SizedBox(height: 10,),
         Center(
           child: RaisedButton(
             child: Text('Selecciona una fecha'),
@@ -673,7 +683,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildDireccion() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -713,7 +723,7 @@ class RegistrarPageState extends State<RegistrarPage> {
 
   Widget _buildObligatorio() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('* OBLIGATORIO',
             style: TextStyle(

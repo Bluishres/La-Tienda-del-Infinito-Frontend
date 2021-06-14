@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:shopend/app/common/GeneralToast.dart';
 import 'package:shopend/app/common/utils/size_config.dart';
 import 'package:shopend/app/domain/model/Producto.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'RoundedIconBtn.dart';
 
@@ -13,7 +14,8 @@ class Price extends StatefulWidget {
 
   Price({
     Key key,
-    this.product, this.Actualizarcantidad,
+    this.product,
+    this.Actualizarcantidad,
   }) : super(key: key);
 
   @override
@@ -38,14 +40,15 @@ class _PriceState extends State<Price> {
   }
 
   void aumentarCant() {
-    if(_cantidad <product.stockDisponible){
-    setState(() {
-      _cantidad++;
-    });
-    Actualizarcantidad(_cantidad);
-    setState(() {
-      _Price = double.parse(product.precio) * _cantidad;
-    });}else{
+    if (_cantidad < product.stockDisponible) {
+      setState(() {
+        _cantidad++;
+      });
+      Actualizarcantidad(_cantidad);
+      setState(() {
+        _Price = double.parse(product.precio) * _cantidad;
+      });
+    } else {
       SuccessToast("No se puede sobrepasar el stock disponible.");
     }
   }
@@ -76,22 +79,46 @@ class _PriceState extends State<Price> {
           Text(f.format(_Price).toString() + "€",
               style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold)),
           Spacer(),
-          RoundedIconBtn(
-            icon: Icons.remove,
-            press: () {
-              disminuirCant();
-            },
-          ),
+          UniversalPlatform.isAndroid
+              ? RoundedIconBtn(
+                  icon: Icons.remove,
+                  press: () {
+                    disminuirCant();
+                  },
+                )
+              : RawMaterialButton(
+                  onPressed: () {disminuirCant();},
+                  elevation: 2.0,
+                  fillColor: Colors.white,
+                  child: Icon(
+                    Icons.remove,
+                    size: 35.0,
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),
           SizedBox(width: getProportionateScreenWidth(20, context: context)),
           Text(_cantidad.toString()),
           SizedBox(width: getProportionateScreenWidth(20, context: context)),
-          RoundedIconBtn(
-            icon: Icons.add,
-            showShadow: true,
-            press: () {
-              aumentarCant();
-            },
-          ),
+          UniversalPlatform.isAndroid
+              ? RoundedIconBtn(
+                  icon: Icons.add,
+                  showShadow: true,
+                  press: () {
+                    aumentarCant();
+                  },
+                )
+              : RawMaterialButton(
+                  onPressed: () {aumentarCant();},
+                  elevation: 2.0,
+                  fillColor: Colors.white,
+                  child: Icon(
+                    Icons.add,
+                    size: 35.0,
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),
         ],
       ),
     );

@@ -179,7 +179,7 @@ class RegistrarProductoState extends State<RegistrarProducto> {
 
   Widget _buildFotoPerfil() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text('Foto Perfil: ',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -214,9 +214,9 @@ class RegistrarProductoState extends State<RegistrarProducto> {
 
   Widget _buildDescripcion() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
           Column(children: <Widget>[
             Text('Descripción: ',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -266,12 +266,12 @@ class RegistrarProductoState extends State<RegistrarProducto> {
 
   Widget _buildNombre() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
         ),
-        Row(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
           Column(children: <Widget>[
             Text('Nombre: ',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -324,12 +324,12 @@ class RegistrarProductoState extends State<RegistrarProducto> {
 
   Widget _buildPrecio() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
         ),
-        Row(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
           Column(children: <Widget>[
             Text('Precio: ',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -382,12 +382,12 @@ class RegistrarProductoState extends State<RegistrarProducto> {
 
   Widget _buildStockDisponible() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0),
         ),
-        Row(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
           Column(children: <Widget>[
             Text('Stock Disponible: ',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
